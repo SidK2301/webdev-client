@@ -1,4 +1,12 @@
-export default function Piazza() {
+import Link from "next/link";
+
+export default async function Piazza({
+  params,
+}: {
+  params: Promise<{ cid: string }>;
+}) {
+  const { cid } = await params;
+
   return (
     <div id="wd-course-piazza">
       <h2>Piazza</h2>
@@ -7,9 +15,9 @@ export default function Piazza() {
 
       <br />
 
-      <a href="/courses/101/home">
+      <Link href={`/courses/${cid}/home`}>
         Course Home
-      </a>
+      </Link>
     </div>
   );
 }

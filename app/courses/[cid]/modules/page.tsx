@@ -1,11 +1,18 @@
-export default function Modules() {
+import Link from "next/link";
+
+export default async function Modules({
+  params,
+}: {
+  params: Promise<{ cid: string }>;
+}) {
+  const { cid } = await params;
+
   return (
     <div id="wd-course-modules">
       <h2>Modules</h2>
 
       <section id="wd-module-1">
         <h3>Week 1: Introduction</h3>
-
         <ul>
           <li>Introduction to Computer Science</li>
           <li>Course Overview</li>
@@ -15,7 +22,6 @@ export default function Modules() {
 
       <section id="wd-module-2">
         <h3>Week 2: Programming Basics</h3>
-
         <ul>
           <li>Variables and Data Types</li>
           <li>Control Flow</li>
@@ -25,9 +31,9 @@ export default function Modules() {
 
       <br />
 
-      <a href="/courses/101/home">
+      <Link href={`/courses/${cid}/home`}>
         Course Home
-      </a>
+      </Link>
     </div>
   );
 }

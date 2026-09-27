@@ -1,4 +1,12 @@
-export default function People() {
+import Link from "next/link";
+
+export default async function People({
+  params,
+}: {
+  params: Promise<{ cid: string }>;
+}) {
+  const { cid } = await params;
+
   return (
     <div id="wd-course-people">
       <h2>People</h2>
@@ -15,9 +23,9 @@ export default function People() {
 
       <br />
 
-      <a href="/courses/101/home">
+      <Link href={`/courses/${cid}/home`}>
         Course Home
-      </a>
+      </Link>
     </div>
   );
 }

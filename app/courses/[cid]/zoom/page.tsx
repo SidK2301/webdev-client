@@ -1,4 +1,12 @@
-export default function Zoom() {
+import Link from "next/link";
+
+export default async function Zoom({
+  params,
+}: {
+  params: Promise<{ cid: string }>;
+}) {
+  const { cid } = await params;
+
   return (
     <div id="wd-course-zoom">
       <h2>Zoom</h2>
@@ -7,9 +15,9 @@ export default function Zoom() {
 
       <br />
 
-      <a href="/courses/101/home">
+      <Link href={`/courses/${cid}/home`}>
         Course Home
-      </a>
+      </Link>
     </div>
   );
 }

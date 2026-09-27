@@ -1,4 +1,12 @@
-export default function Quizzes() {
+import Link from "next/link";
+
+export default async function Quizzes({
+  params,
+}: {
+  params: Promise<{ cid: string }>;
+}) {
+  const { cid } = await params;
+
   return (
     <div id="wd-course-quizzes">
       <h2>Quizzes</h2>
@@ -7,9 +15,9 @@ export default function Quizzes() {
 
       <br />
 
-      <a href="/courses/101/home">
+      <Link href={`/courses/${cid}/home`}>
         Course Home
-      </a>
+      </Link>
     </div>
   );
 }

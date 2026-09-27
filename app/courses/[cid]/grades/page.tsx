@@ -1,4 +1,12 @@
-export default function Grades() {
+import Link from "next/link";
+
+export default async function Grades({
+  params,
+}: {
+  params: Promise<{ cid: string }>;
+}) {
+  const { cid } = await params;
+
   return (
     <div id="wd-course-grades">
       <h2>Grades</h2>
@@ -11,9 +19,9 @@ export default function Grades() {
 
       <br />
 
-      <a href="/courses/101/home">
+      <Link href={`/courses/${cid}/home`}>
         Course Home
-      </a>
+      </Link>
     </div>
   );
 }

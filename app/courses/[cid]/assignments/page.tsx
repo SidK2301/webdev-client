@@ -1,12 +1,18 @@
 import Link from "next/link";
 
-export default function Assignments() {
+export default async function Assignments({
+  params,
+}: {
+  params: Promise<{ cid: string }>;
+}) {
+  const { cid } = await params;
+
   return (
     <div id="wd-course-assignments">
       <h2>Assignments</h2>
 
       <h3>
-        <Link href="/courses/101/assignments/editor">
+        <Link href={`/courses/${cid}/assignments/editor`}>
           Assignment 1
         </Link>
       </h3>
@@ -20,7 +26,7 @@ export default function Assignments() {
 
       <br />
 
-      <Link href="/courses/101/home">
+      <Link href={`/courses/${cid}/home`}>
         Course Home
       </Link>
     </div>
