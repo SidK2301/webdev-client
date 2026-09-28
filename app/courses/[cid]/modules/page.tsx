@@ -8,7 +8,7 @@ export default async function Modules({
   const { cid } = await params;
 
   return (
-    <div id="wd-course-modules">
+    <div id="wd-modules">
       <h2>Modules</h2>
 
       <section id="wd-module-1">

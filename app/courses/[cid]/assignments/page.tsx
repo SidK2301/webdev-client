@@ -8,7 +8,7 @@ export default async function Assignments({
   const { cid } = await params;
 
   return (
-    <div id="wd-course-assignments">
+    <div id="wd-assignments">
       <h2>Assignments</h2>
 
       <section>

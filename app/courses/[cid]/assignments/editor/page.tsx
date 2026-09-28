@@ -17,7 +17,7 @@ export default async function AssignmentEditor({
         </label>
         <br />
         <input
-          id="wd-assignment-name"
+          id="wd-name"
           type="text"
           defaultValue="Assignment 1"
         />

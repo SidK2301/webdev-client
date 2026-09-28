@@ -11,16 +11,22 @@ export default async function CourseLayout({
 
   return (
     <div id="wd-course-layout">
-      <nav id="wd-course-navigation">
+      <nav id="wd-courses-navigation">
         <h3>Course Navigation</h3>
 
-        <Link href={`/courses/${cid}/home`}>
+        <Link
+          id="wd-course-home-link"
+          href={`/courses/${cid}/home`}
+        >
           Home
         </Link>
 
         <br />
 
-        <Link href={`/courses/${cid}/modules`}>
+        <Link
+          id="wd-course-modules-link"
+          href={`/courses/${cid}/modules`}
+        >
           Modules
         </Link>
 
@@ -44,7 +50,10 @@ export default async function CourseLayout({
 
         <br />
 
-        <Link href={`/courses/${cid}/piazza`}>
+        <Link
+          id="wd-course-piazza-link"
+          href={`/courses/${cid}/piazza`}
+        >
           Piazza
         </Link>
 

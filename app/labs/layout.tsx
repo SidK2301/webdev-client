@@ -6,12 +6,10 @@ export default function LabsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div id="wd-labs-layout">
-      <aside id="wd-labs-toc">
-        <TOC />
-      </aside>
+    <div>
+      <TOC />
 
-      <main id="wd-labs-content">
+      <main>
         {children}
       </main>
     </div>
