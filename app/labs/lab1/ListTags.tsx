@@ -40,13 +40,13 @@ export default function ListTags() {
 
       <h5>HTML Tags I Learned</h5>
       <ul id="wd-ai-html-tags">
-        <li>h1</li>
-        <li>p</li>
-        <li>ul</li>
-        <li>ol</li>
-        <li>li</li>
-        <li>table</li>
-        <li>img</li>
+        <li>h1 — Defines the main heading of a page.</li>
+        <li>p — Defines a paragraph of text.</li>
+        <li>ul — Creates an unordered (bulleted) list.</li>
+        <li>ol — Creates an ordered (numbered) list.</li>
+        <li>li — Defines an item in a list.</li>
+        <li>table — Creates a table for displaying data.</li>
+        <li>img — Displays an image on a webpage.</li>
       </ul>
     </div>
   );

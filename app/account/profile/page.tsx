@@ -6,6 +6,7 @@ export default function Profile() {
       <input
         id="wd-profile-username"
         placeholder="username"
+        defaultValue="siddhi23"
       />
 
       <br />
@@ -13,6 +14,7 @@ export default function Profile() {
       <input
         id="wd-profile-first-name"
         placeholder="first name"
+        defaultValue="Siddhi"
       />
 
       <br />
@@ -20,6 +22,7 @@ export default function Profile() {
       <input
         id="wd-profile-last-name"
         placeholder="last name"
+        defaultValue="Kore"
       />
 
       <br />
@@ -28,6 +31,7 @@ export default function Profile() {
         id="wd-profile-email"
         placeholder="email"
         type="email"
+        defaultValue="Kore.si@northeastern.edu"
       />
 
       <br />
