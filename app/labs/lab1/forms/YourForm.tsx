@@ -3,14 +3,13 @@ export default function YourForm() {
     <form id="wd-your-form">
       <h4>Student Profile</h4>
 
-      {/* Text Fields */}
       <h5>Personal Information</h5>
 
       <label htmlFor="wd-first-name">First Name:</label>
       <input
         id="wd-first-name"
         type="text"
-        placeholder="Enter your first name"
+        defaultValue="Siddhi"
       />
       <br />
 
@@ -18,7 +17,7 @@ export default function YourForm() {
       <input
         id="wd-last-name"
         type="text"
-        placeholder="Enter your last name"
+        defaultValue="Kore"
       />
       <br />
 
@@ -26,11 +25,10 @@ export default function YourForm() {
       <input
         id="wd-password"
         type="password"
-        placeholder="Enter a password"
+        defaultValue="password123"
       />
       <br />
 
-      {/* Textarea */}
       <h5>About Me</h5>
 
       <label htmlFor="wd-bio">Why are you taking this course?</label>
@@ -39,11 +37,10 @@ export default function YourForm() {
         id="wd-bio"
         cols={40}
         rows={5}
-        placeholder="Tell us a little about yourself..."
+        defaultValue="I am taking this course to improve my web development skills and learn how to build applications using HTML, Next.js, React, and Kambaz."
       />
       <br />
 
-      {/* Radio Buttons */}
       <h5>Class Standing</h5>
 
       <label>Class Standing:</label>
@@ -54,9 +51,9 @@ export default function YourForm() {
         id="wd-graduate"
         name="class-standing"
         value="graduate"
+        defaultChecked
       />
       <label htmlFor="wd-graduate">Graduate</label>
-
       <br />
 
       <input
@@ -66,7 +63,6 @@ export default function YourForm() {
         value="senior"
       />
       <label htmlFor="wd-senior">Senior</label>
-
       <br />
 
       <input
@@ -76,7 +72,6 @@ export default function YourForm() {
         value="junior"
       />
       <label htmlFor="wd-junior">Junior</label>
-
       <br />
 
       <h5>Enrollment</h5>
@@ -86,9 +81,9 @@ export default function YourForm() {
         id="wd-full-time"
         name="enrollment"
         value="full-time"
+        defaultChecked
       />
       <label htmlFor="wd-full-time">Full-time</label>
-
       <br />
 
       <input
@@ -98,10 +93,8 @@ export default function YourForm() {
         value="part-time"
       />
       <label htmlFor="wd-part-time">Part-time</label>
-
       <br />
 
-      {/* Checkboxes */}
       <h5>Interests</h5>
 
       <input
@@ -109,9 +102,9 @@ export default function YourForm() {
         id="wd-python-interest"
         name="interests"
         value="python"
+        defaultChecked
       />
       <label htmlFor="wd-python-interest">Python</label>
-
       <br />
 
       <input
@@ -119,9 +112,9 @@ export default function YourForm() {
         id="wd-react-interest"
         name="interests"
         value="react"
+        defaultChecked
       />
       <label htmlFor="wd-react-interest">React</label>
-
       <br />
 
       <input
@@ -129,9 +122,9 @@ export default function YourForm() {
         id="wd-cloud-interest"
         name="interests"
         value="cloud"
+        defaultChecked
       />
       <label htmlFor="wd-cloud-interest">Cloud Computing</label>
-
       <br />
 
       <input
@@ -139,12 +132,11 @@ export default function YourForm() {
         id="wd-ai-interest"
         name="interests"
         value="ai"
+        defaultChecked
       />
       <label htmlFor="wd-ai-interest">Artificial Intelligence</label>
-
       <br />
 
-      {/* Dropdowns */}
       <h5>Academic Information</h5>
 
       <label htmlFor="wd-major">Major:</label>
@@ -163,27 +155,40 @@ export default function YourForm() {
       <select
         id="wd-topics"
         multiple
-        defaultValue={["distributed-systems", "machine-learning"]}
+        defaultValue={[
+          "distributed-systems",
+          "machine-learning",
+          "web-development",
+          "cloud-computing",
+          "databases",
+        ]}
       >
         <option value="distributed-systems">
           Distributed Systems
         </option>
-        <option value="machine-learning">Machine Learning</option>
-        <option value="web-development">Web Development</option>
-        <option value="cloud-computing">Cloud Computing</option>
-        <option value="databases">Databases</option>
+        <option value="machine-learning">
+          Machine Learning
+        </option>
+        <option value="web-development">
+          Web Development
+        </option>
+        <option value="cloud-computing">
+          Cloud Computing
+        </option>
+        <option value="databases">
+          Databases
+        </option>
       </select>
 
       <br />
 
-      {/* Typed Inputs */}
       <h5>Additional Information</h5>
 
       <label htmlFor="wd-email">School Email:</label>
       <input
         id="wd-email"
         type="email"
-        placeholder="yourname@university.edu"
+        defaultValue="Kore.si@northeastern.edu"
       />
       <br />
 
@@ -203,6 +208,7 @@ export default function YourForm() {
       <input
         id="wd-start-date"
         type="date"
+        defaultValue="2026-01-05"
       />
       <br />
 
@@ -219,7 +225,6 @@ export default function YourForm() {
 
       <br />
 
-      {/* Buttons */}
       <h5>Actions</h5>
 
       <button id="wd-save-button" type="submit">
