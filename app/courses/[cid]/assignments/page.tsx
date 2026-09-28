@@ -11,18 +11,47 @@ export default async function Assignments({
     <div id="wd-course-assignments">
       <h2>Assignments</h2>
 
-      <h3>
-        <Link href={`/courses/${cid}/assignments/editor`}>
-          Assignment 1
-        </Link>
-      </h3>
-      <p>Introduction to Computer Science</p>
+      <section>
+        <h3>Assignments</h3>
 
-      <h3>Assignment 2</h3>
-      <p>Programming Basics</p>
+        <article>
+          <h4>
+            <Link href={`/courses/${cid}/assignments/editor`}>
+              Assignment 1
+            </Link>
+          </h4>
+          <p>
+            Introduction to Computer Science
+          </p>
+          <p>
+            Due: September 20 &nbsp; | &nbsp; Points: 100
+          </p>
+        </article>
 
-      <h3>Assignment 3</h3>
-      <p>Functions and Control Flow</p>
+        <hr />
+
+        <article>
+          <h4>Assignment 2</h4>
+          <p>
+            Programming Basics
+          </p>
+          <p>
+            Due: September 27 &nbsp; | &nbsp; Points: 100
+          </p>
+        </article>
+
+        <hr />
+
+        <article>
+          <h4>Assignment 3</h4>
+          <p>
+            Functions and Control Flow
+          </p>
+          <p>
+            Due: October 4 &nbsp; | &nbsp; Points: 100
+          </p>
+        </article>
+      </section>
 
       <br />
 

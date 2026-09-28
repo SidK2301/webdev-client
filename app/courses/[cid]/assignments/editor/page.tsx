@@ -1,65 +1,85 @@
-export default function AssignmentEditor() {
+import Link from "next/link";
+
+export default async function AssignmentEditor({
+  params,
+}: {
+  params: Promise<{ cid: string }>;
+}) {
+  const { cid } = await params;
+
   return (
     <div id="wd-assignments-editor">
       <h2>Assignment Editor</h2>
 
-      <label>
-        Assignment Name
+      <div>
+        <label htmlFor="wd-assignment-name">
+          Assignment Name
+        </label>
         <br />
         <input
           id="wd-assignment-name"
           type="text"
           defaultValue="Assignment 1"
         />
-      </label>
+      </div>
 
       <br />
-      <br />
 
-      <label>
-        Description
+      <div>
+        <label htmlFor="wd-assignment-description">
+          Description
+        </label>
         <br />
         <textarea
           id="wd-assignment-description"
+          rows={6}
+          cols={50}
           defaultValue="Introduction to Computer Science"
         />
-      </label>
+      </div>
 
       <br />
-      <br />
 
-      <label>
-        Points
+      <div>
+        <label htmlFor="wd-assignment-points">
+          Points
+        </label>
         <br />
         <input
           id="wd-assignment-points"
           type="number"
           defaultValue="100"
         />
-      </label>
+      </div>
 
       <br />
-      <br />
 
-      <label>
-        Due Date
+      <div>
+        <label htmlFor="wd-assignment-due-date">
+          Due Date
+        </label>
         <br />
         <input
           id="wd-assignment-due-date"
           type="date"
         />
-      </label>
+      </div>
 
       <br />
-      <br />
 
-      <button id="wd-save-assignment">
-        Save
-      </button>
+      <div>
+        <button id="wd-save-assignment" type="button">
+          Save
+        </button>
 
-      <button id="wd-cancel-assignment">
-        Cancel
-      </button>
+        {" "}
+
+        <Link href={`/courses/${cid}/assignments`}>
+          <button id="wd-cancel-assignment" type="button">
+            Cancel
+          </button>
+        </Link>
+      </div>
     </div>
   );
 }
