@@ -193,7 +193,7 @@ export default function Profile() {
         id="wd-profile-email"
         type="email"
         defaultValue=""
-        placeholder="Enter your Northeastern email"
+        placeholder="Kore.si@northeastern.edu"
       />
       <br />
 
