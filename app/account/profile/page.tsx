@@ -5,262 +5,231 @@ export default function Profile() {
 
       <h3>Personal Information</h3>
 
-      <label htmlFor="wd-profile-first-name">First Name:</label>
+      <label>First Name:</label>
       <input
         id="wd-profile-first-name"
-        type="text"
         defaultValue="Siddhi"
       />
-
       <br />
 
-      <label htmlFor="wd-profile-last-name">Last Name:</label>
+      <label>Last Name:</label>
       <input
         id="wd-profile-last-name"
-        type="text"
         defaultValue="Kore"
       />
-
       <br />
 
-      <label htmlFor="wd-profile-password">Password:</label>
+      <label>Password:</label>
       <input
         id="wd-profile-password"
         type="password"
+        defaultValue="password123"
       />
+      <br />
 
       <h3>About Me</h3>
 
-      <label htmlFor="wd-profile-about">
-        Why are you taking this course?
-      </label>
-
+      <label>Why are you taking this course?</label>
       <br />
-
       <textarea
         id="wd-profile-about"
-        rows={4}
-        cols={50}
-        defaultValue="I am taking this course to learn web development and build practical skills using HTML, Next.js, React, and Kambaz."
+        defaultValue="I am taking this course to improve my web development skills and learn how to build applications using HTML, Next.js, React, and Kambaz."
       />
+      <br />
 
       <h3>Class Standing</h3>
 
-      <label htmlFor="wd-profile-standing">
-        Class Standing:
-      </label>
+      <label>Class Standing:</label>
+      <br />
 
-      <select
-        id="wd-profile-standing"
-        defaultValue="Graduate"
-      >
-        <option value="Graduate">Graduate</option>
-        <option value="Senior">Senior</option>
-        <option value="Junior">Junior</option>
-      </select>
+      <input
+        type="radio"
+        name="class-standing"
+        value="Graduate"
+        defaultChecked
+      />
+      Graduate
+      <br />
+
+      <input
+        type="radio"
+        name="class-standing"
+        value="Senior"
+      />
+      Senior
+      <br />
+
+      <input
+        type="radio"
+        name="class-standing"
+        value="Junior"
+      />
+      Junior
+      <br />
 
       <h3>Enrollment</h3>
 
-      <label>
-        <input
-          type="radio"
-          name="enrollment"
-          value="Full-time"
-          defaultChecked
-        />
-        Full-time
-      </label>
+      <input
+        type="radio"
+        name="enrollment"
+        value="Full-time"
+        defaultChecked
+      />
+      Full-time
+      <br />
 
-      <label>
-        <input
-          type="radio"
-          name="enrollment"
-          value="Part-time"
-        />
-        Part-time
-      </label>
+      <input
+        type="radio"
+        name="enrollment"
+        value="Part-time"
+      />
+      Part-time
+      <br />
 
       <h3>Interests</h3>
 
-      <label>
-        <input
-          type="checkbox"
-          name="interests"
-          value="Python"
-          defaultChecked
-        />
-        Python
-      </label>
+      <input
+        type="checkbox"
+        name="interests"
+        value="Python"
+        defaultChecked
+      />
+      Python
+      <br />
 
-      <label>
-        <input
-          type="checkbox"
-          name="interests"
-          value="React"
-          defaultChecked
-        />
-        React
-      </label>
+      <input
+        type="checkbox"
+        name="interests"
+        value="React"
+        defaultChecked
+      />
+      React
+      <br />
 
-      <label>
-        <input
-          type="checkbox"
-          name="interests"
-          value="Cloud Computing"
-          defaultChecked
-        />
-        Cloud Computing
-      </label>
+      <input
+        type="checkbox"
+        name="interests"
+        value="Cloud Computing"
+        defaultChecked
+      />
+      Cloud Computing
+      <br />
 
-      <label>
-        <input
-          type="checkbox"
-          name="interests"
-          value="Artificial Intelligence"
-          defaultChecked
-        />
-        Artificial Intelligence
-      </label>
+      <input
+        type="checkbox"
+        name="interests"
+        value="Artificial Intelligence"
+        defaultChecked
+      />
+      Artificial Intelligence
+      <br />
 
       <h3>Academic Information</h3>
 
-      <label htmlFor="wd-profile-major">
-        Major:
-      </label>
-
+      <label>Major:</label>
       <select
         id="wd-profile-major"
         defaultValue="Computer Science"
       >
-        <option value="Computer Science">
-          Computer Science
-        </option>
-        <option value="Data Science">
-          Data Science
-        </option>
-        <option value="Information Systems">
-          Information Systems
-        </option>
-        <option value="Computer Engineering">
-          Computer Engineering
-        </option>
+        <option>Computer Science</option>
+        <option>Data Science</option>
+        <option>Information Systems</option>
+        <option>Computer Engineering</option>
       </select>
-
       <br />
 
       <label>Topics I want to learn:</label>
-
       <br />
 
-      <label>
-        <input
-          type="checkbox"
-          name="topics"
-          value="Distributed Systems"
-          defaultChecked
-        />
-        Distributed Systems
-      </label>
+      <input
+        type="checkbox"
+        name="topics"
+        value="Distributed Systems"
+        defaultChecked
+      />
+      Distributed Systems
+      <br />
 
-      <label>
-        <input
-          type="checkbox"
-          name="topics"
-          value="Machine Learning"
-          defaultChecked
-        />
-        Machine Learning
-      </label>
+      <input
+        type="checkbox"
+        name="topics"
+        value="Machine Learning"
+        defaultChecked
+      />
+      Machine Learning
+      <br />
 
-      <label>
-        <input
-          type="checkbox"
-          name="topics"
-          value="Web Development"
-          defaultChecked
-        />
-        Web Development
-      </label>
+      <input
+        type="checkbox"
+        name="topics"
+        value="Web Development"
+        defaultChecked
+      />
+      Web Development
+      <br />
 
-      <label>
-        <input
-          type="checkbox"
-          name="topics"
-          value="Cloud Computing"
-          defaultChecked
-        />
-        Cloud Computing
-      </label>
+      <input
+        type="checkbox"
+        name="topics"
+        value="Cloud Computing"
+        defaultChecked
+      />
+      Cloud Computing
+      <br />
 
-      <label>
-        <input
-          type="checkbox"
-          name="topics"
-          value="Databases"
-          defaultChecked
-        />
-        Databases
-      </label>
+      <input
+        type="checkbox"
+        name="topics"
+        value="Databases"
+        defaultChecked
+      />
+      Databases
+      <br />
 
       <h3>Additional Information</h3>
 
-      <label htmlFor="wd-profile-email">
-        School Email:
-      </label>
-
+      <label>School Email:</label>
       <input
         id="wd-profile-email"
         type="email"
-        defaultValue="Kore.si@northeastern.edu"
+        defaultValue=""
+        placeholder="Enter your Northeastern email"
       />
-
       <br />
 
-      <label htmlFor="wd-profile-graduation">
-        Expected Graduation Year:
-      </label>
-
+      <label>Expected Graduation Year:</label>
       <input
         id="wd-profile-graduation"
         type="number"
         defaultValue="2027"
       />
-
       <br />
 
-      <label htmlFor="wd-profile-start-date">
-        Program Start Date:
-      </label>
-
+      <label>Program Start Date:</label>
       <input
         id="wd-profile-start-date"
         type="date"
         defaultValue="2026-01-05"
       />
-
       <br />
 
-      <label htmlFor="wd-profile-excitement">
-        Course Excitement (0–10):
-      </label>
-
+      <label>Course Excitement (0–10):</label>
       <input
         id="wd-profile-excitement"
         type="number"
         min="0"
         max="10"
-        defaultValue="8"
+        defaultValue="10"
       />
+      <br />
 
       <h3>Actions</h3>
 
-      <button id="wd-profile-save" type="button">
+      <button id="wd-profile-save">
         Save
       </button>
 
-      {" "}
-
-      <button id="wd-profile-cancel" type="button">
+      <button id="wd-profile-cancel">
         Cancel
       </button>
     </div>
