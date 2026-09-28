@@ -28,7 +28,7 @@ export default function KambazLayout({
 
         <br />
 
-        <Link href="/dashboard" id="wd-signin-btn">
+        <Link href="/account/signin" id="wd-signin-btn">
           Sign In
         </Link>
       </nav>
