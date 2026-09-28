@@ -12,40 +12,17 @@ export default function Lab1() {
   return (
     <div id="wd-lab1">
       <h2>Lab 1</h2>
+
       <h3>HTML Examples</h3>
 
       <HeadingTags />
-
       <ParagraphTag />
-
       <ListTags />
-
       <Tables />
-
       <Images />
-
       <Forms />
-
-      <HighlightedParagraph
-        text="This is my highlighted paragraph."
-        color="blue"
-        backgroundColor="lightyellow"
-      />
-
-      <HighlightedParagraph
-        text="This is an AI-generated highlighted paragraph."
-        color="purple"
-        backgroundColor="lightgreen"
-      />
-
-      <HighlightedBox
-        color="white"
-        backgroundColor="darkblue"
-      >
-        <h3>Highlighted Box</h3>
-        <p>This content is inside a highlighted box.</p>
-      </HighlightedBox>
-
+      <HighlightedParagraph />
+      <HighlightedBox />
       <AnchorTag />
     </div>
   );

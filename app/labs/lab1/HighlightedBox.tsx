@@ -1,24 +1,86 @@
-interface HighlightedBoxProps {
-  children: React.ReactNode;
-  color?: string;
-  backgroundColor?: string;
-}
+import type { ReactNode } from "react";
 
-export default function HighlightedBox({
+function HighlightedBox({
+  backgroundColor = "lightyellow",
+  borderColor = "orange",
+  borderWidth = 2,
+  borderRadius = 8,
   children,
-  color = "black",
-  backgroundColor = "lightblue",
-}: HighlightedBoxProps) {
+}: {
+  backgroundColor?: string;
+  borderColor?: string;
+  borderWidth?: string | number;
+  borderRadius?: string | number;
+  children?: ReactNode;
+}) {
   return (
     <div
       style={{
-        color: color,
-        backgroundColor: backgroundColor,
-        padding: "10px",
-        border: "1px solid black",
+        backgroundColor,
+        borderColor,
+        borderWidth,
+        borderStyle: "solid",
+        borderRadius,
+        padding: "0.75rem 1rem",
+        marginBottom: "0.75rem",
       }}
     >
       {children}
+    </div>
+  );
+}
+
+export default function HighlightedBoxLab() {
+  return (
+    <div id="wd-highlighted-box">
+      <h3>Highlighted Box</h3>
+
+      <HighlightedBox
+        backgroundColor="lavender"
+        borderColor="purple"
+        borderWidth={3}
+        borderRadius={12}
+      >
+        <h4>Callout</h4>
+        <p>
+          This box wraps <strong>any</strong> children — headings, paragraphs,
+          lists, and more.
+        </p>
+        <ul>
+          <li>backgroundColor</li>
+          <li>borderColor</li>
+          <li>borderWidth</li>
+          <li>borderRadius</li>
+        </ul>
+      </HighlightedBox>
+
+      <HighlightedBox
+        backgroundColor="#e8f5e9"
+        borderColor="green"
+        borderWidth={2}
+        borderRadius={20}
+      >
+        <h4>My Goals</h4>
+        <ul>
+          <li>Improve my React skills</li>
+          <li>Build better web applications</li>
+          <li>Understand Next.js routing</li>
+        </ul>
+      </HighlightedBox>
+
+      <HighlightedBox
+        backgroundColor="honeydew"
+        borderColor="seagreen"
+        borderWidth={3}
+        borderRadius={12}
+      >
+        <h4>Sample nested content</h4>
+        <ul>
+          <li>p</li>
+          <li>table</li>
+          <li>form</li>
+        </ul>
+      </HighlightedBox>
     </div>
   );
 }
