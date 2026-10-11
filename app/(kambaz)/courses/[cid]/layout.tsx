@@ -1,76 +1,29 @@
-import Link from "next/link";
+import type { ReactNode } from "react";
+import { FaAlignJustify } from "react-icons/fa";
+import CourseNavigation from "./Navigation";
 
 export default async function CourseLayout({
   children,
   params,
-}: {
-  children: React.ReactNode;
+}: Readonly<{
+  children: ReactNode;
   params: Promise<{ cid: string }>;
-}) {
+}>) {
   const { cid } = await params;
 
   return (
-    <div id="wd-course-layout">
-      <nav id="wd-courses-navigation">
-        <h3>Course Navigation</h3>
-
-        <Link
-          id="wd-course-home-link"
-          href={`/courses/${cid}/home`}
-        >
-          Home
-        </Link>
-
-        <br />
-
-        <Link
-          id="wd-course-modules-link"
-          href={`/courses/${cid}/modules`}
-        >
-          Modules
-        </Link>
-
-        <br />
-
-        <Link href={`/courses/${cid}/assignments`}>
-          Assignments
-        </Link>
-
-        <br />
-
-        <Link href={`/courses/${cid}/grades`}>
-          Grades
-        </Link>
-
-        <br />
-
-        <Link href={`/courses/${cid}/people`}>
-          People
-        </Link>
-
-        <br />
-
-        <Link
-          id="wd-course-piazza-link"
-          href={`/courses/${cid}/piazza`}
-        >
-          Piazza
-        </Link>
-
-        <br />
-
-        <Link href={`/courses/${cid}/zoom`}>
-          Zoom
-        </Link>
-
-        <br />
-
-        <Link href={`/courses/${cid}/quizzes`}>
-          Quizzes
-        </Link>
-      </nav>
-
-      <main>{children}</main>
+    <div id="wd-courses">
+      <h2 className="mb-3 flex items-center text-2xl font-semibold text-red-600">
+        <FaAlignJustify className="me-4 mb-1 text-xl" />
+        Courses {cid}
+      </h2>
+      <hr className="my-3" />
+      <div className="flex gap-4">
+        <div className="hidden w-[140px] shrink-0 md:block">
+          <CourseNavigation cid={cid} />
+        </div>
+        <div className="min-w-0 flex-1">{children}</div>
+      </div>
     </div>
   );
 }
