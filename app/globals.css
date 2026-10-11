@@ -1,4 +1,5 @@
-@import "tailwindcss";
+@import "tailwindcss/theme" layer(theme);
+@import "tailwindcss/utilities" layer(utilities);
 
 :root {
   --background: #f7f8fa;
@@ -51,75 +52,6 @@ h2 {
   margin-bottom: 20px;
 }
 
-/* Kambaz layout */
-#wd-kambaz-layout {
-  min-height: 100vh;
-}
-
-#wd-kambaz-navigation {
-  background: #111827;
-  color: white;
-  padding: 20px;
-  min-height: 100vh;
-  width: 220px;
-  float: left;
-}
-
-#wd-kambaz-navigation h2 {
-  color: white;
-  margin-bottom: 25px;
-}
-
-#wd-kambaz-navigation a {
-  display: block;
-  color: white;
-  padding: 8px 10px;
-  border-radius: 5px;
-}
-
-#wd-kambaz-navigation a:hover {
-  background: #374151;
-  text-decoration: none;
-}
-
-#wd-kambaz-content {
-  margin-left: 220px;
-  padding: 30px;
-}
-
-/* Course layout */
-#wd-course-layout {
-  display: flex;
-  min-height: 100vh;
-}
-
-#wd-course-navigation {
-  width: 220px;
-  padding: 25px 20px;
-  background: #ffffff;
-  border-right: 1px solid var(--border);
-}
-
-#wd-course-navigation h3 {
-  margin-bottom: 20px;
-}
-
-#wd-course-navigation a {
-  display: block;
-  padding: 7px 10px;
-  border-radius: 5px;
-}
-
-#wd-course-navigation a:hover {
-  background: #eff6ff;
-  text-decoration: none;
-}
-
-#wd-course-layout > main {
-  flex: 1;
-  padding: 30px;
-}
-
 /* Labs */
 #wd-labs-layout {
   display: flex;
@@ -136,52 +68,6 @@ h2 {
 #wd-labs-content {
   flex: 1;
   padding: 30px;
-}
-
-/* Dashboard */
-#wd-dashboard {
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-#wd-dashboard h4 {
-  margin-bottom: 5px;
-}
-
-#wd-dashboard a {
-  display: inline-block;
-  margin-bottom: 20px;
-}
-
-/* Course pages */
-#wd-course-home,
-#wd-course-modules,
-#wd-course-assignments,
-#wd-course-grades,
-#wd-course-people,
-#wd-course-piazza,
-#wd-course-zoom,
-#wd-course-quizzes,
-#wd-assignments-editor {
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-/* Cards / sections */
-#wd-course-status,
-#wd-module-1,
-#wd-module-2,
-#wd-assignments-editor {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 20px;
-  margin: 20px 0;
-}
-
-#wd-module-1,
-#wd-module-2 {
-  margin-bottom: 20px;
 }
 
 /* Lists */
@@ -262,26 +148,17 @@ img {
 
 /* Mobile */
 @media (max-width: 768px) {
-  #wd-kambaz-navigation,
-  #wd-course-navigation,
   #wd-labs-toc {
     width: 100%;
     min-height: auto;
     float: none;
   }
 
-  #wd-kambaz-content {
-    margin-left: 0;
-  }
-
-  #wd-course-layout,
   #wd-labs-layout {
     display: block;
   }
 
-  #wd-course-layout > main,
-  #wd-labs-content,
-  #wd-kambaz-content {
+  #wd-labs-content {
     padding: 20px;
   }
 }

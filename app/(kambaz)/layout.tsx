@@ -1,41 +1,14 @@
-import Link from "next/link";
+import type { ReactNode } from "react";
+import "./kambaz.css";
+import KambazNavigation from "./Navigation";
 
 export default function KambazLayout({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+}: Readonly<{ children: ReactNode }>) {
   return (
-    <div id="wd-kambaz-layout">
-      <nav id="wd-kambaz-navigation">
-        <h2>Kambaz</h2>
-
-        <Link href="/dashboard">
-          Dashboard
-        </Link>
-
-        <br />
-
-        <Link href="/account/profile" id="wd-account-link">
-          Account
-        </Link>
-
-        <br />
-
-        <Link href="/labs">
-          Labs
-        </Link>
-
-        <br />
-
-        <Link href="/dashboard" id="wd-signin-btn">
-          Sign In
-        </Link>
-      </nav>
-
-      <main id="wd-kambaz-content">
-        {children}
-      </main>
+    <div id="wd-kambaz" className="font-sans">
+      <KambazNavigation />
+      <div className="wd-main-content-offset p-3">{children}</div>
     </div>
   );
 }
