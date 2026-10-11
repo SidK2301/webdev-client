@@ -52,11 +52,11 @@
 #wd-lab2 #wd-css-selectors .wd-cascade-class { background: #fef08a; color: #166534; }
 #wd-lab2 #wd-css-selectors #wd-ai-cascade { background: #111827; color: white; padding: 0.5rem; }
 
-#wd-lab2 .wd-fg-color-black { color: black; }
-#wd-lab2 .wd-fg-color-white { color: white; }
-#wd-lab2 .wd-fg-color-blue { color: #7070ff; }
-#wd-lab2 .wd-fg-color-red { color: #ff7070; }
-#wd-lab2 .wd-fg-color-green { color: green; }
+.wd-fg-color-black { color: black; }
+.wd-fg-color-white { color: white; }
+.wd-fg-color-blue { color: #7070ff; }
+.wd-fg-color-red { color: #ff7070; }
+.wd-fg-color-green { color: green; }
 .wd-bg-color-yellow { background-color: #ffff07; }
 .wd-bg-color-blue { background-color: #7070ff; }
 .wd-bg-color-red { background-color: #ff7070; }

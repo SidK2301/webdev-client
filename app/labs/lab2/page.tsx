@@ -11,6 +11,7 @@ import ForegroundColors from "./ForegroundColors";
 import GridLayout from "./GridLayout";
 import Margins from "./Margins";
 import MediaQueriesDemo from "./MediaQueriesDemo";
+import ReactIconsSampler from "./ReactIconsSampler";
 import Padding from "./Padding";
 import Positions from "./Positions";
 import Zindex from "./Zindex";
@@ -80,6 +81,7 @@ export default function Lab2() {
       <GridLayout />
       <Flex />
       <MediaQueriesDemo />
+      <ReactIconsSampler />
 
       <p className="wd-lab-tailwind-link">
         Continue to <a href="/labs/lab2/tailwind">the Tailwind CSS samples</a>.
