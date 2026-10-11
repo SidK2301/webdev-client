@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { FaPlus, FaSearch } from "react-icons/fa";
+import AssignmentItem from "./AssignmentItem";
 
 export default async function Assignments({
   params,
@@ -9,55 +10,73 @@ export default async function Assignments({
 
   return (
     <div id="wd-assignments">
-      <h2>Assignments</h2>
-
-      <section>
-        <h3>Assignments</h3>
-
-        <article>
-          <h4>
-            <Link href={`/courses/${cid}/assignments/editor`}>
-              Assignment 1
-            </Link>
-          </h4>
-          <p>
-            Introduction to Computer Science
-          </p>
-          <p>
-            Due: September 20 &nbsp; | &nbsp; Points: 100
-          </p>
-        </article>
-
-        <hr />
-
-        <article>
-          <h4>Assignment 2</h4>
-          <p>
-            Programming Basics
-          </p>
-          <p>
-            Due: September 27 &nbsp; | &nbsp; Points: 100
-          </p>
-        </article>
-
-        <hr />
-
-        <article>
-          <h4>Assignment 3</h4>
-          <p>
-            Functions and Control Flow
-          </p>
-          <p>
-            Due: October 4 &nbsp; | &nbsp; Points: 100
-          </p>
-        </article>
-      </section>
-
-      <br />
-
-      <Link href={`/courses/${cid}/home`}>
-        Course Home
-      </Link>
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+        <div className="relative">
+          <FaSearch className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-neutral-500" />
+          <input
+            placeholder="Search for Assignments"
+            id="wd-search-assignment"
+            className="w-64 rounded border py-1.5 pr-3 pl-9 text-sm"
+          />
+        </div>
+        <div className="flex gap-2">
+          <button
+            id="wd-add-assignment-group"
+            type="button"
+            className="inline-flex items-center gap-1 rounded border px-3 py-1.5 text-sm"
+          >
+            <FaPlus /> Group
+          </button>
+          <button
+            id="wd-add-assignment"
+            type="button"
+            className="inline-flex items-center gap-1 rounded bg-red-600 px-3 py-1.5 text-sm font-medium text-white"
+          >
+            <FaPlus /> Assignment
+          </button>
+        </div>
+      </div>
+      <h3
+        id="wd-assignments-title"
+        className="mb-3 flex items-center justify-between rounded bg-neutral-200 p-3 text-lg"
+      >
+        <span>ASSIGNMENTS 40% of Total</span>
+        <button type="button" className="rounded border bg-white px-2 py-0.5 text-sm">
+          <FaPlus />
+        </button>
+      </h3>
+      <ul id="wd-assignment-list" className="m-0 list-none p-0">
+        <AssignmentItem
+          cid={cid}
+          aid="123"
+          title="A1 - ENV + HTML"
+          details="Multiple Modules | Not available until May 6 at 12:00am | Due May 13 at 11:59pm | 100 pts"
+        />
+        <AssignmentItem
+          cid={cid}
+          aid="234"
+          title="A2 - CSS + TAILWIND"
+          details="Multiple Modules | Not available until May 13 at 12:00am | Due May 20 at 11:59pm | 100 pts"
+        />
+        <AssignmentItem
+          cid={cid}
+          aid="345"
+          title="A3 - JAVASCRIPT + REACT"
+          details="Multiple Modules | Not available until May 20 at 12:00am | Due May 27 at 11:59pm | 100 pts"
+        />
+        <AssignmentItem
+          cid={cid}
+          aid="456"
+          title="A4 - My Web Development Notes"
+          details="Multiple Modules | Available now | Due June 3 at 11:59pm | 100 pts"
+        />
+        <AssignmentItem
+          cid={cid}
+          aid="ai-a"
+          title="A9 - Sample assignment"
+          details="Multiple Modules | Available now | Due June 10 at 11:59pm | 100 pts"
+        />
+      </ul>
     </div>
   );
 }
