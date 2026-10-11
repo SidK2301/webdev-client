@@ -52,17 +52,27 @@
 #wd-lab2 #wd-css-selectors .wd-cascade-class { background: #fef08a; color: #166534; }
 #wd-lab2 #wd-css-selectors #wd-ai-cascade { background: #111827; color: white; padding: 0.5rem; }
 
-#wd-lab2 #wd-fg-color { color: #b91c1c; }
-#wd-lab2 #wd-ai-fg { color: #1d4ed8; }
-#wd-lab2 #wd-ai-fg span { color: #111827; font-weight: 700; }
-#wd-lab2 #wd-bg-color { background: #b91c1c; color: white; padding: 0.5rem; }
-#wd-lab2 #wd-ai-bg { background: #fef08a; color: #111827; padding: 0.5rem; }
+#wd-lab2 .wd-fg-color-black { color: black; }
+#wd-lab2 .wd-fg-color-white { color: white; }
+#wd-lab2 .wd-fg-color-blue { color: #7070ff; }
+#wd-lab2 .wd-fg-color-red { color: #ff7070; }
+#wd-lab2 .wd-fg-color-green { color: green; }
+#wd-lab2 .wd-bg-color-yellow { background-color: #ffff07; }
+#wd-lab2 .wd-bg-color-blue { background-color: #7070ff; }
+#wd-lab2 .wd-bg-color-red { background-color: #ff7070; }
+#wd-lab2 .wd-bg-color-green { background-color: green; }
+#wd-lab2 .wd-bg-color-gray { background-color: lightgray; }
+#wd-lab2 #wd-css-background-colors p { padding: 0.5rem; }
+#wd-lab2 #wd-css-background-colors span { padding: 0.1rem 0.2rem; }
 
-#wd-lab2 .wd-border-fat-red { border: 8px solid #dc2626; padding: 0.5rem; margin: 0.5rem 0; }
-#wd-lab2 .wd-border-thin-blue { border: 2px dashed #2563eb; padding: 0.5rem; margin: 0.5rem 0; }
-#wd-lab2 .wd-border-solid { border-style: solid; padding: 0.5rem; margin: 0.5rem 0; }
-#wd-lab2 .wd-border-dashed { border-style: dashed; padding: 0.5rem; margin: 0.5rem 0; }
-#wd-lab2 .wd-border-accent { border-width: 4px; border-color: #7c3aed; border-radius: 0.5rem; }
+#wd-lab2 .wd-border-fat { border-width: 8px; }
+#wd-lab2 .wd-border-thin { border-width: 2px; }
+#wd-lab2 .wd-border-solid { border-style: solid; }
+#wd-lab2 .wd-border-dashed { border-style: dashed; }
+#wd-lab2 .wd-border-yellow { border-color: #ffff07; }
+#wd-lab2 .wd-border-red { border-color: #ff7070; }
+#wd-lab2 .wd-border-blue { border-color: #7070ff; }
+#wd-lab2 #wd-css-borders p { margin: 0.5rem 0; padding: 0.5rem; }
 #wd-lab2 .wd-padding-sample { border: 2px solid #0f766e; padding: 1.5rem 2.5rem 0.75rem 0.5rem; background: #ecfdf5; }
 #wd-lab2 #wd-ai-padded { border: 2px solid #7c3aed; padding: 1.5rem 2rem 0.5rem 1rem; margin: 0.5rem; width: 260px; box-sizing: border-box; background: #f5f3ff; }
 #wd-lab2 .wd-margin-demo { padding: 0.5rem; border: 1px dashed #9ca3af; }
@@ -97,10 +107,14 @@
 
 #wd-lab2 .wd-position-stage { position: relative; min-height: 160px; padding: 0.5rem; background: #f3f4f6; }
 #wd-lab2 .wd-relative-box { position: relative; top: 12px; left: 16px; width: 240px; padding: 0.5rem; color: white; background: #2563eb; }
-#wd-lab2 .wd-absolute-parent, #wd-lab2 .wd-ai-absolute-parent { position: relative; height: 100px; margin-top: 1rem; padding: 0.5rem; border: 1px dashed #6b7280; }
-#wd-lab2 .wd-absolute-box { position: absolute; top: 0; right: 0; padding: 0.4rem; color: white; background: #dc2626; }
+#wd-lab2 .wd-absolute-parent, #wd-lab2 .wd-ai-absolute-parent { position: relative; height: 180px; margin-top: 1rem; padding: 0.5rem; border: 1px dashed #6b7280; background: #f3f4f6; }
+#wd-lab2 .wd-absolute-box { position: absolute; padding: 0.4rem; color: #111827; }
+#wd-lab2 .wd-absolute-one { top: 10px; left: 10px; background: #fef08a; }
+#wd-lab2 .wd-absolute-two { top: 50px; left: 50px; color: white; background: #2563eb; }
+#wd-lab2 .wd-absolute-three { top: 20px; left: 120px; background: #fecaca; }
+#wd-lab2 #wd-ai-absolute { position: absolute; right: 10px; bottom: 10px; padding: 0.4rem; color: white; background: #7c3aed; }
 #wd-lab2 #wd-ai-relative { position: relative; top: 8px; left: 18px; width: 220px; padding: 0.5rem; background: #fef08a; }
-#wd-lab2 #wd-ai-absolute { position: absolute; right: 0; bottom: 0; padding: 0.4rem; color: white; background: #7c3aed; }
+#wd-lab2 .wd-ai-absolute-parent span { position: absolute; top: 0; left: 0; padding: 0.4rem; background: #fef08a; }
 #wd-lab2 .wd-fixed-box { position: fixed; z-index: 5; right: 1rem; bottom: 1rem; padding: 0.5rem 0.75rem; border-radius: 0.35rem; color: white; background: #2563eb; }
 #wd-lab2 #wd-ai-fixed { position: fixed; z-index: 5; bottom: 1rem; left: 1rem; padding: 0.5rem 0.75rem; border-radius: 0.35rem; color: white; background: #111827; }
 #wd-lab2 .wd-stack-stage { position: relative; height: 170px; }

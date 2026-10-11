@@ -2,10 +2,10 @@ export default function Borders() {
   return (
     <section id="wd-css-borders" className="wd-lab-section">
       <h3>Borders</h3>
-      <div className="wd-border-fat-red">Fat red solid border</div>
-      <div className="wd-border-thin-blue">Thin blue dashed border</div>
-      <div className="wd-border-solid wd-border-accent">Personal sample mixes the reusable solid and accent classes.</div>
-      <div id="wd-ai-border" className="wd-border-dashed wd-border-accent">AI sample mixes reusable border classes.</div>
+      <p className="wd-border-fat wd-border-red wd-border-solid">Fat red solid border</p>
+      <p className="wd-border-thin wd-border-blue wd-border-dashed">Thin blue dashed border</p>
+      <p className="wd-border-fat wd-border-yellow wd-border-dashed">Personal sample mixes reusable border classes.</p>
+      <p id="wd-ai-border" className="wd-border-fat wd-border-yellow wd-border-dashed">AI sample mixes reusable border classes.</p>
     </section>
   );
 }
