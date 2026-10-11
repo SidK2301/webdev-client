@@ -6,10 +6,10 @@ export default function Positions() {
         <div className="wd-relative-box">Relative box (offset without moving the space around it)</div>
         <div id="wd-css-position-absolute">
           <h4>Absolute position</h4>
-          <div className="wd-absolute-parent wd-pos-relative">
-            <div className="wd-absolute-box wd-absolute-one wd-pos-absolute-10-10">Absolute box one</div>
-            <div className="wd-absolute-box wd-absolute-two wd-pos-absolute-50-50">Absolute box two</div>
-            <div className="wd-absolute-box wd-absolute-three wd-pos-absolute-120-20">Absolute box three</div>
+          <div className="wd-pos-relative" style={{ height: 150 }}>
+            <div className="wd-pos-absolute-10-10 wd-bg-color-yellow wd-dimension-portrait">Portrait</div>
+            <div className="wd-pos-absolute-50-50 wd-bg-color-blue wd-dimension-landscape">Landscape</div>
+            <div className="wd-pos-absolute-120-20 wd-bg-color-red wd-dimension-square">Square</div>
             <span id="wd-ai-absolute">AI absolute: bottom right</span>
           </div>
         </div>
