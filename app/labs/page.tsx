@@ -33,13 +33,13 @@ export default function Labs() {
         </li>
 
         <li>
-          <a href="https://github.com/SidK2301/webdev-client" id="wd-github" target="_blank">
+          <a href="https://github.com/SidK2301/webdev-client" id="wd-github" target="_blank" rel="noreferrer">
             GitHub
           </a>
         </li>
 
         <li>
-          <a href="https://kambaz.dev" target="_blank">
+          <a href="/dashboard">
             Kambaz
           </a>
         </li>
