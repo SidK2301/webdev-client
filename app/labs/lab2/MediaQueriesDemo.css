@@ -1,0 +1,65 @@
+#wd-lab2 #wd-mq-rule {
+  padding: 0.75rem;
+  color: #14532d;
+  background: #dcfce7;
+}
+
+#wd-lab2 .wd-mq-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+#wd-lab2 .wd-mq-box {
+  min-width: 220px;
+  min-height: 110px;
+  padding: 1rem;
+  color: white;
+  background: #15803d;
+}
+
+#wd-lab2 .wd-mq-ranges {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+#wd-lab2 .wd-mq-ranges li {
+  padding: 0.2rem 0.45rem;
+}
+
+#wd-lab2 .wd-mq-ranges .wd-mq-range-1 {
+  font-weight: 700;
+  outline: 2px solid #15803d;
+}
+
+#wd-lab2 .wd-mq-rule-ai {
+  padding: 0.75rem;
+  color: #581c87;
+  background: #f3e8ff;
+}
+
+@media (min-width: 750px) and (max-width: 999.98px) {
+  #wd-lab2 .wd-mq-box { color: #422006; background: #facc15; }
+  #wd-lab2 .wd-mq-ranges .wd-mq-range-1 { font-weight: 400; outline: none; }
+  #wd-lab2 .wd-mq-ranges .wd-mq-range-2 { font-weight: 700; outline: 2px solid #a16207; }
+}
+
+@media (min-width: 1000px) and (max-width: 1250px) {
+  #wd-lab2 .wd-mq-box { background: #2563eb; }
+  #wd-lab2 .wd-mq-ranges .wd-mq-range-1 { font-weight: 400; outline: none; }
+  #wd-lab2 .wd-mq-ranges .wd-mq-range-3 { font-weight: 700; outline: 2px solid #1d4ed8; }
+}
+
+@media (min-width: 1250.01px) {
+  #wd-lab2 .wd-mq-box { background: #dc2626; }
+  #wd-lab2 .wd-mq-ranges .wd-mq-range-1 { font-weight: 400; outline: none; }
+  #wd-lab2 .wd-mq-ranges .wd-mq-range-4 { font-weight: 700; outline: 2px solid #b91c1c; }
+}
+
+@media (max-width: 749px) {
+  #wd-lab2 .wd-mq-rule-ai {
+    background: #6b21a8;
+    color: white;
+  }
+}
