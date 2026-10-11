@@ -42,7 +42,7 @@
 #wd-lab2 #wd-css-selectors p#wd-id-selector-3 { background: #0f766e; color: white; padding: 0.4rem; }
 #wd-lab2 #wd-css-selectors p#wd-ai-id-selector { background: #7c3aed; color: white; padding: 0.4rem; }
 
-#wd-lab2 .wd-class-selector { background: #fef08a; color: #1d4ed8; padding: 0.4rem; }
+#wd-lab2 .wd-class-selector { background-color: yellow; color: blue; padding: 0.4rem; }
 #wd-lab2 .wd-your-class { background: #dbeafe; color: #1e3a8a; padding: 0.4rem; }
 #wd-lab2 .wd-ai-class-selector { background: #fce7f3; color: #9d174d; padding: 0.4rem; }
 #wd-lab2 .wd-selector-1 .wd-selector-3 { background: #dc2626; color: white; padding: 0.4rem; }
@@ -108,10 +108,12 @@
 #wd-lab2 .wd-position-stage { position: relative; min-height: 160px; padding: 0.5rem; background: #f3f4f6; }
 #wd-lab2 .wd-relative-box { position: relative; top: 12px; left: 16px; width: 240px; padding: 0.5rem; color: white; background: #2563eb; }
 #wd-lab2 .wd-absolute-parent, #wd-lab2 .wd-ai-absolute-parent { position: relative; height: 180px; margin-top: 1rem; padding: 0.5rem; border: 1px dashed #6b7280; background: #f3f4f6; }
+#wd-lab2 .wd-pos-relative { position: relative; height: 180px; }
 #wd-lab2 .wd-absolute-box { position: absolute; padding: 0.4rem; color: #111827; }
-#wd-lab2 .wd-absolute-one { top: 10px; left: 10px; background: #fef08a; }
-#wd-lab2 .wd-absolute-two { top: 50px; left: 50px; color: white; background: #2563eb; }
-#wd-lab2 .wd-absolute-three { top: 20px; left: 120px; background: #fecaca; }
+#wd-lab2 .wd-pos-absolute-10-10 { top: 10px; left: 10px; background: yellow; }
+#wd-lab2 .wd-pos-absolute-50-50 { top: 50px; left: 50px; color: white; background: blue; }
+#wd-lab2 .wd-pos-absolute-120-20 { top: 20px; left: 120px; background: #fecaca; }
+#wd-lab2 #wd-css-background-colors h2 { margin: 0 0 0.75rem; padding: 0.4rem 0.65rem; }
 #wd-lab2 #wd-ai-absolute { position: absolute; right: 10px; bottom: 10px; padding: 0.4rem; color: white; background: #7c3aed; }
 #wd-lab2 #wd-ai-relative { position: relative; top: 8px; left: 18px; width: 220px; padding: 0.5rem; background: #fef08a; }
 #wd-lab2 .wd-ai-absolute-parent span { position: absolute; top: 0; left: 0; padding: 0.4rem; background: #fef08a; }
