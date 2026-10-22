@@ -1,3 +1,4 @@
+import Link from "next/link";
 import VariablesAndConstants from "./VariablesAndConstants";
 import VariableTypes from "./VariableTypes";
 import BooleanVariables from "./BooleanVariables";
@@ -62,6 +63,7 @@ export default function Lab3() {
       <FunctionDestructing />
       <DestructingImports />
       <OptionalChaining />
+      <p><Link href="/labs/lab3/types">TypeScript Types</Link></p>
     </div>
   );
 }
