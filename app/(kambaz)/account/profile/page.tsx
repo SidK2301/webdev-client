@@ -103,7 +103,7 @@ export default function Profile() {
         </label>
         <label htmlFor="wd-profile-graduation" className={fieldClass}>
           <span>Expected Graduation Year:</span>
-          <input id="wd-profile-graduation" type="number" defaultValue="2027" className={inputClass} />
+          <input id="wd-profile-graduation" type="number" defaultValue="2028" className={inputClass} />
         </label>
         <label htmlFor="wd-profile-start-date" className={fieldClass}>
           <span>Program Start Date:</span>
