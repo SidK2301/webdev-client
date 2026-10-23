@@ -1,5 +1,6 @@
-import PeopleTable from "./table/page";
+import { redirect } from "next/navigation";
 
-export default function People() {
-  return <PeopleTable />;
+export default async function People({ params }: { params: Promise<{ cid: string }> }) {
+  const { cid } = await params;
+  redirect(`/courses/${cid}/people/table`);
 }

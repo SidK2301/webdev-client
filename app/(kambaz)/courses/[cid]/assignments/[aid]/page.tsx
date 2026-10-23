@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
+import * as db from "../../../../database";
 
 const inputClass =
   "w-full rounded border border-neutral-300 bg-white px-3 py-2 text-sm focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-100";
@@ -30,11 +31,12 @@ export default async function AssignmentEditor({
 }: {
   params: Promise<{ cid: string; aid: string }>;
 }) {
-  const { cid } = await params;
+  const { cid, aid } = await params;
+  const assignment = db.assignments.find((a) => a._id === aid && a.course === cid);
   const assignmentsHref = `/courses/${cid}/assignments`;
 
   return (
-    <div id="wd-assignments-editor" className="max-w-5xl">
+    <div key={aid} id="wd-assignments-editor" className="max-w-5xl">
       <h1 className="mb-5 text-2xl font-semibold text-neutral-800">
         Assignment Editor
       </h1>
@@ -43,16 +45,18 @@ export default async function AssignmentEditor({
           <input
             id="wd-name"
             type="text"
-            defaultValue="Assignment 1"
+            defaultValue={assignment?.title ?? ""}
             className={inputClass}
           />
         </EditorField>
+
+        <p className="text-sm text-neutral-600">Assignment id: {aid}</p>
 
         <EditorField id="wd-assignment-description" label="Description">
           <textarea
             id="wd-assignment-description"
             rows={6}
-            defaultValue="Introduction to Computer Science"
+            defaultValue={assignment?.description ?? ""}
             className={inputClass}
           />
         </EditorField>
@@ -61,7 +65,7 @@ export default async function AssignmentEditor({
           <input
             id="wd-assignment-points"
             type="number"
-            defaultValue="100"
+            defaultValue={assignment?.points ?? 100}
             className={inputClass}
           />
         </EditorField>
@@ -147,7 +151,7 @@ export default async function AssignmentEditor({
           <input
             id="wd-assignment-due-date"
             type="datetime-local"
-            defaultValue="2024-05-13T23:59"
+            defaultValue={assignment?.due ? `${assignment.due}T23:59` : ""}
             className={inputClass}
           />
         </EditorField>
@@ -156,7 +160,7 @@ export default async function AssignmentEditor({
           <input
             id="wd-available-from"
             type="datetime-local"
-            defaultValue="2024-05-06T00:01"
+            defaultValue={assignment?.available ? `${assignment.available}T00:01` : ""}
             className={inputClass}
           />
         </EditorField>
