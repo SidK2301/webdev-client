@@ -34,6 +34,12 @@ import Styles from "./Styles";
 import ClientComponentDemo from "./ClientComponentDemo";
 import ServerComponentDemo from "./ServerComponentDemo";
 
+import Add from "./Add";
+import Square from "./Square";
+import Highlight from "./Highlight";
+import PathParameters from "./PathParameters";
+import TodoList from "./todos/TodoList";
+
 export default function Lab3() {
   console.log("Hello World!");
   return (
@@ -72,7 +78,27 @@ export default function Lab3() {
       <Styles />
       <ClientComponentDemo />
       <ServerComponentDemo />
-      <p><Link href="/labs/lab3/types">TypeScript Types</Link></p>
+      <Add a={3} b={4} />
+      <Add a={10} b={20} id="wd-add-personal" />
+      <Add a={7} b={8} id="wd-add-sample" />
+      <h4>Square of 4</h4>
+      <Square>4</Square>
+      <h4>Square of 9</h4>
+      <Square id="wd-square-personal">9</Square>
+      <p>Square of 5 = <Square id="wd-square-sample">5</Square></p>
+      <hr />
+      <h4>Highlight</h4>
+      <p><Highlight>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</Highlight></p>
+      <p><Highlight id="wd-highlight-personal">I am learning to build data-driven web applications.</Highlight></p>
+      <p><Highlight id="wd-highlight-sample">Children can be any JSX</Highlight></p>
+      <PathParameters />
+      <TodoList />
+      <h3>More Lab 3 Examples</h3>
+      <ul>
+        <li><Link href="/labs/lab3/types">TypeScript Types</Link></li>
+        <li><Link href="/labs/lab3/client-apis">Client-Only APIs</Link></li>
+        <li><Link href="/labs/lab3/server-apis">Server-Only APIs</Link></li>
+      </ul>
     </div>
   );
 }
