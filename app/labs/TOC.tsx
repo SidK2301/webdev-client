@@ -10,9 +10,11 @@ const LINKS = [
   { id: "wd-lab1-link", label: "Lab 1", href: "/labs/lab1", match: matchesLab("/labs/lab1") },
   { id: "wd-lab2-link", label: "Lab 2", href: "/labs/lab2", match: matchesLab("/labs/lab2") },
   { id: "wd-lab3-link", label: "Lab 3", href: "/labs/lab3", match: matchesLab("/labs/lab3") },
+  { id: "wd-lab4-link", label: "Lab 4", href: "/labs/lab4", match: matchesLab("/labs/lab4") },
   { id: "wd-kambaz-link", label: "Kambaz", href: "/dashboard", match: () => false },
   { id: "wd-toc-book-link", label: "Chapter 1", href: "/book/ch1", match: () => false },
   { id: "wd-book-ch3-link", label: "Book Ch3", href: "https://kambaz.dev/book/ch3", match: () => false },
+  { id: "wd-book-ch4-link", label: "Book Ch4", href: "https://kambaz.dev/book/ch4", match: () => false },
 ];
 const activeStyle = {
   backgroundColor: "#2563eb", color: "white", borderRadius: "4px",
