@@ -6,11 +6,15 @@ export default function CourseCard({
   name,
   description,
   image,
+  onEdit,
+  onDelete,
 }: {
   _id: string;
   name: string;
   description: string;
   image: string;
+  onEdit: () => void;
+  onDelete: () => void;
 }) {
   return (
     <div className="wd-dashboard-course w-[300px] max-w-full overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-sm">
@@ -32,14 +36,17 @@ export default function CourseCard({
           <p className="wd-dashboard-course-description m-0 mb-3 h-[100px] overflow-hidden text-sm text-neutral-600">
             {description}
           </p>
-          <button
-            type="button"
+          <span
             className="inline-flex items-center justify-center rounded bg-blue-600 px-3 py-1.5 text-sm font-medium text-white"
           >
             Go
-          </button>
+          </span>
         </div>
       </Link>
+      <div className="flex gap-2 px-4 pb-4">
+        <button type="button" className="wd-edit-course-click rounded border px-3 py-1" onClick={onEdit}>Edit</button>
+        <button type="button" className="wd-delete-course-click rounded border px-3 py-1 text-red-700" onClick={onDelete}>Delete</button>
+      </div>
     </div>
   );
 }
