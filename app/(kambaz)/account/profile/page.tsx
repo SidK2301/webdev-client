@@ -1,4 +1,9 @@
-import Link from "next/link";
+"use client";
+
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAccount } from "../AccountContext";
+import type { AccountUser } from "../authenticate";
 
 const inputClass =
   "w-full rounded border border-neutral-300 px-3 py-2 focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-100";
@@ -6,28 +11,52 @@ const fieldClass = "grid gap-1 sm:grid-cols-[220px_minmax(0,1fr)] sm:items-cente
 const sectionClass = "space-y-4 border-b border-neutral-200 pb-5";
 
 export default function Profile() {
+  const { currentUser, setCurrentUser } = useAccount();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!currentUser) router.replace("/account/signin");
+  }, [currentUser, router]);
+
+  if (!currentUser) return null;
+  return <ProfileForm key={currentUser._id} user={currentUser} save={setCurrentUser}
+    signOut={() => setCurrentUser(null)} />;
+}
+
+function ProfileForm({ user, save, signOut }: {
+  user: AccountUser;
+  save: (user: AccountUser) => void;
+  signOut: () => void;
+}) {
+  const [draft, setDraft] = useState(user);
+  const [saved, setSaved] = useState(false);
+
+  function change(field: "firstName" | "lastName" | "email", value: string) {
+    setDraft((previous) => ({ ...previous, [field]: value }));
+    setSaved(false);
+  }
+
   return (
-    <div id="wd-profile-screen" className="max-w-3xl">
-      <h1 className="mb-5 text-2xl font-semibold">Student Profile</h1>
+    <form id="wd-profile-screen" className="max-w-3xl" onSubmit={(event) => {
+      event.preventDefault();
+      save(draft);
+      setSaved(true);
+    }}>
+      <h1 className="mb-5 text-2xl font-semibold">Profile</h1>
 
       <section className={sectionClass}>
         <h2 className="text-lg font-semibold">Personal Information</h2>
         <label htmlFor="wd-profile-first-name" className={fieldClass}>
           <span>First Name:</span>
-          <input id="wd-profile-first-name" defaultValue="Siddhi" className={inputClass} />
+          <input id="wd-profile-first-name" value={draft.firstName} onChange={(event) => change("firstName", event.target.value)} className={inputClass} />
         </label>
         <label htmlFor="wd-profile-last-name" className={fieldClass}>
           <span>Last Name:</span>
-          <input id="wd-profile-last-name" defaultValue="Kore" className={inputClass} />
+          <input id="wd-profile-last-name" value={draft.lastName} onChange={(event) => change("lastName", event.target.value)} className={inputClass} />
         </label>
-        <label htmlFor="wd-profile-password" className={fieldClass}>
-          <span>Password:</span>
-          <input
-            id="wd-profile-password"
-            type="password"
-            defaultValue="password123"
-            className={inputClass}
-          />
+        <label htmlFor="wd-profile-username" className={fieldClass}>
+          <span>Username:</span>
+          <input id="wd-profile-username" value={user.username} readOnly className={inputClass} />
         </label>
       </section>
 
@@ -38,7 +67,7 @@ export default function Profile() {
           <textarea
             id="wd-profile-about"
             rows={4}
-            defaultValue="I am taking this course to improve my web development skills and learn how to build applications using HTML, Next.js, React, and Kambaz."
+            name="about"
             className={inputClass}
           />
         </label>
@@ -99,7 +128,7 @@ export default function Profile() {
         <h2 className="text-lg font-semibold">Additional Information</h2>
         <label htmlFor="wd-profile-email" className={fieldClass}>
           <span>School Email:</span>
-          <input id="wd-profile-email" type="email" defaultValue="" placeholder="Kore.si@northeastern.edu" className={inputClass} />
+          <input id="wd-profile-email" type="email" value={draft.email} onChange={(event) => change("email", event.target.value)} className={inputClass} />
         </label>
         <label htmlFor="wd-profile-graduation" className={fieldClass}>
           <span>Expected Graduation Year:</span>
@@ -116,10 +145,11 @@ export default function Profile() {
       </section>
 
       <div className="mt-5 flex flex-wrap gap-2">
-        <button id="wd-profile-save" type="button" className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">Save</button>
-        <button id="wd-profile-cancel" type="button" className="rounded border border-neutral-300 bg-neutral-100 px-4 py-2 text-neutral-800 hover:bg-neutral-200">Cancel</button>
-        <Link href="/account/signin" id="wd-profile-signout" className="rounded bg-red-600 px-4 py-2 text-white no-underline hover:bg-red-700">Sign out</Link>
+        <button id="wd-profile-save" type="submit" className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">Save</button>
+        <button id="wd-profile-cancel" type="reset" onClick={() => { setDraft(user); setSaved(false); }} className="rounded border border-neutral-300 bg-neutral-100 px-4 py-2 text-neutral-800 hover:bg-neutral-200">Cancel</button>
+        <button type="button" onClick={signOut} id="wd-profile-signout" className="rounded bg-red-600 px-4 py-2 text-white no-underline hover:bg-red-700">Sign out</button>
       </div>
-    </div>
+      {saved && <p role="status" className="mt-3">Profile saved.</p>}
+    </form>
   );
 }

@@ -33,7 +33,6 @@ export default function Signup() {
       </button>
       <div className="flex gap-3 text-sm">
         <Link href="/account/signin">Sign in</Link>
-        <Link href="/account/profile">Profile</Link>
       </div>
     </div>
   );

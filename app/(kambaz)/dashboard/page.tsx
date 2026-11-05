@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { useAccount } from "../account/AccountContext";
+import enrollments from "../database/enrollments.json";
 import CourseCard from "./CourseCard";
 import { useCourses, type Course } from "../store/coursesStore";
 
@@ -10,6 +12,11 @@ const buttonClass = "rounded bg-blue-600 px-3 py-2 text-white disabled:opacity-5
 
 export default function Dashboard() {
   const { courses, add, update, remove } = useCourses();
+  const { currentUser } = useAccount();
+  const visibleCourses = currentUser
+    ? courses.filter((course) => enrollments.some((enrollment) =>
+        enrollment.user === currentUser._id && enrollment.course === course._id))
+    : courses;
   const [draft, setDraft] = useState(empty);
   const [editing, setEditing] = useState<Course | null>(null);
 
@@ -58,11 +65,11 @@ export default function Dashboard() {
           {editing && <button type="button" className="rounded border px-3 py-2" onClick={reset}>Cancel</button>}
         </div>
       </form>
-      <h2 id="wd-dashboard-published">Published Courses ({courses.length})</h2>
+      <h2 id="wd-dashboard-published">Published Courses ({visibleCourses.length})</h2>
       <hr />
       <div id="wd-dashboard-courses"
         className="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-        {courses.map((course) => (
+        {visibleCourses.map((course) => (
           <CourseCard key={course._id} {...course} onEdit={() => {
             setEditing(course);
             setDraft({ name: course.name, description: course.description,
