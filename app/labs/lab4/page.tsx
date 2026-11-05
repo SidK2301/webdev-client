@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
+import StoreExercises from "./StoreExercises";
 
 type Person = { firstName: string; lastName: string; age: number; city: string };
 
@@ -33,7 +35,7 @@ export default function Lab4() {
 
   return (
     <div id="wd-lab4" className="flex max-w-4xl flex-col gap-5 p-4">
-      <h2 className="text-2xl font-semibold">Lab 4 — Events and Local State</h2>
+      <h2 className="text-2xl font-semibold">Lab 4 — Events, State, and Stores</h2>
 
       <section className="rounded border p-4">
         <h3 className="mb-2 text-lg font-semibold">Click Events</h3>
@@ -117,6 +119,16 @@ export default function Lab4() {
         <h3 className="mb-2 text-lg font-semibold">Profile Form State</h3>
         <label className="mr-2"><input type="checkbox" checked={profileSaved} onChange={(event) => setProfileSaved(event.target.checked)} /> Profile reviewed</label>
         <p>{profileSaved ? "Profile ready to save." : "Review the profile fields before saving."}</p>
+      </section>
+      <StoreExercises />
+
+      <section className="rounded border p-4">
+        <h3 className="mb-2 text-lg font-semibold">Encoding State in the URL</h3>
+        <ul className="space-y-1">
+          <li><Link className="underline" href="/labs/lab4/url-encoding/query-params?a=3&b=4">Query parameters: 3 + 4</Link></li>
+          <li><Link className="underline" href="/labs/lab4/url-encoding/path-params/3/4">Path parameters: 3 + 4</Link></li>
+          <li><Link className="underline" href="/labs/lab4/url-encoding/path-params/2.5/-1.25">Decimal path parameters: 2.5 + (-1.25)</Link></li>
+        </ul>
       </section>
     </div>
   );
