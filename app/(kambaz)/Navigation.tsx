@@ -8,6 +8,7 @@ import { FaBookOpen } from "react-icons/fa6";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useAccount } from "./account/AccountContext";
 
 const matches = (href: string) => (p: string) => p === href || p.startsWith(href + "/");
 const LINKS = [
@@ -22,6 +23,7 @@ const LINKS = [
 
 export default function KambazNavigation() {
   const pathname = usePathname() ?? "";
+  const { currentUser } = useAccount();
   const accountActive = matches("/account")(pathname);
   return (
     <nav id="wd-kambaz-navigation" className="fixed bottom-0 top-0 z-20 hidden w-[120px] bg-black md:block">
@@ -40,7 +42,7 @@ export default function KambazNavigation() {
           className="mx-auto"
         />
       </a>
-      <Link href="/account" id="wd-account-link" aria-current={accountActive ? "page" : undefined}
+      <Link href={currentUser ? "/account/profile" : "/account/signin"} id="wd-account-link" aria-current={accountActive ? "page" : undefined}
         className={`block py-3 text-center text-sm no-underline ${accountActive ? "bg-white text-red-600" : "bg-black text-white"}`}>
         <FaRegUserCircle className={`inline-block text-3xl ${accountActive ? "text-red-600" : "text-white"}`} />
         <br />Account
