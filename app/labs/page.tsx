@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 export default function Labs() {
+  const serverUrl = process.env.NEXT_PUBLIC_HTTP_SERVER;
   return (
     <div id="wd-labs">
       <h2>Labs</h2>
@@ -37,6 +38,14 @@ export default function Labs() {
             GitHub
           </a>
         </li>
+
+        <li>
+          <a href="https://github.com/SidK2301/webdev-server">Server GitHub</a>
+        </li>
+
+        {serverUrl?.startsWith("https://") && (
+          <li><a href={serverUrl}>Deployed Express Server</a></li>
+        )}
 
         <li>
           <a href="/dashboard">

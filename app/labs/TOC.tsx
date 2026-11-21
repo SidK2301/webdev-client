@@ -15,9 +15,9 @@ const LINKS = [
   { id: "wd-kambaz-link", label: "Kambaz", href: "/dashboard", match: () => false },
   { id: "wd-toc-book-link", label: "Chapter 1", href: "/book/ch1", match: () => false },
   { id: "wd-book-ch3-link", label: "Book Ch3", href: "https://kambaz.dev/book/ch3", match: () => false },
+  { id: "wd-book-ch4-link", label: "Book Ch4", href: "https://kambaz.dev/book/ch4", match: () => false },
   { id: "wd-book-ch5-link", label: "Book Ch5", href: "https://kambaz.dev/book/ch5", match: () => false },
   { id: "wd-server-github", label: "Server GitHub", href: "https://github.com/SidK2301/webdev-server", match: () => false },
-  { id: "wd-book-ch4-link", label: "Book Ch4", href: "https://kambaz.dev/book/ch4", match: () => false },
 ];
 const activeStyle = {
   backgroundColor: "#2563eb", color: "white", borderRadius: "4px",
