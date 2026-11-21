@@ -11,9 +11,12 @@ const LINKS = [
   { id: "wd-lab2-link", label: "Lab 2", href: "/labs/lab2", match: matchesLab("/labs/lab2") },
   { id: "wd-lab3-link", label: "Lab 3", href: "/labs/lab3", match: matchesLab("/labs/lab3") },
   { id: "wd-lab4-link", label: "Lab 4", href: "/labs/lab4", match: matchesLab("/labs/lab4") },
+  { id: "wd-lab5-link", label: "Lab 5", href: "/labs/lab5", match: matchesLab("/labs/lab5") },
   { id: "wd-kambaz-link", label: "Kambaz", href: "/dashboard", match: () => false },
   { id: "wd-toc-book-link", label: "Chapter 1", href: "/book/ch1", match: () => false },
   { id: "wd-book-ch3-link", label: "Book Ch3", href: "https://kambaz.dev/book/ch3", match: () => false },
+  { id: "wd-book-ch5-link", label: "Book Ch5", href: "https://kambaz.dev/book/ch5", match: () => false },
+  { id: "wd-server-github", label: "Server GitHub", href: "https://github.com/SidK2301/webdev-server", match: () => false },
   { id: "wd-book-ch4-link", label: "Book Ch4", href: "https://kambaz.dev/book/ch4", match: () => false },
 ];
 const activeStyle = {
@@ -36,6 +39,9 @@ export default function TOC() {
             </li>
           );
         })}
+        {process.env.NEXT_PUBLIC_HTTP_SERVER?.startsWith("https://") && (
+          <li><a id="wd-server-link" href={process.env.NEXT_PUBLIC_HTTP_SERVER}>Deployed Express Server</a></li>
+        )}
       </ul>
       <p>Siddhi Ramchandra Kore</p>
     </nav>
