@@ -1,14 +1,27 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { FaAlignJustify } from "react-icons/fa";
 import CourseNavigation from "./Navigation";
 import Breadcrumb from "./Breadcrumb";
-import { useCourses } from "../../store/coursesStore";
+import type { Course } from "../../store/coursesStore";
+import { apiError } from "../../api";
+import { findCourse } from "../client";
 
 export default function CourseShell({ cid, children }: { cid: string; children: ReactNode }) {
   const [navigationOpen, setNavigationOpen] = useState(true);
-  const course = useCourses((state) => state.courses.find((item) => item._id === cid));
+  const [course, setCourse] = useState<Course>();
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const controller = new AbortController();
+    findCourse(cid, controller.signal)
+      .then((record) => { if (!controller.signal.aborted) setCourse(record); })
+      .catch((failure) => {
+        if (!controller.signal.aborted) setError(apiError(failure, "The course could not be loaded."));
+      });
+    return () => controller.abort();
+  }, [cid]);
 
   return (
     <div id="wd-courses">
@@ -19,8 +32,9 @@ export default function CourseShell({ cid, children }: { cid: string; children: 
           <FaAlignJustify />
         </button>
         <Breadcrumb course={course} />
-        <span className="ml-2 text-sm">({course?._id})</span>
+        <span className="ml-2 text-sm">({cid})</span>
       </h2>
+      {error && <p role="alert" className="text-red-700">{error}</p>}
       <hr className="my-3" />
       <div className="flex gap-4">
         <div id="wd-course-sidebar" hidden={!navigationOpen} className="w-[140px] shrink-0">

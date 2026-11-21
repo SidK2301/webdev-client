@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAccount } from "../AccountContext";
-import type { AccountUser } from "../authenticate";
+import { signOut as endSession, updateProfile, type AccountUser } from "../client";
+import { apiError } from "../../api";
 
 const inputClass =
   "w-full rounded border border-neutral-300 px-3 py-2 focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-100";
@@ -11,25 +12,47 @@ const fieldClass = "grid gap-1 sm:grid-cols-[220px_minmax(0,1fr)] sm:items-cente
 const sectionClass = "space-y-4 border-b border-neutral-200 pb-5";
 
 export default function Profile() {
-  const { currentUser, setCurrentUser } = useAccount();
+  const { currentUser, setCurrentUser, loadingAccount, accountError } = useAccount();
   const router = useRouter();
 
   useEffect(() => {
-    if (!currentUser) router.replace("/account/signin");
-  }, [currentUser, router]);
+    if (!loadingAccount && !accountError && !currentUser) router.replace("/account/signin");
+  }, [accountError, currentUser, loadingAccount, router]);
 
+  if (loadingAccount) return <p role="status">Checking your session…</p>;
+  if (accountError) return <p role="alert">{accountError}</p>;
   if (!currentUser) return null;
   return <ProfileForm key={currentUser._id} user={currentUser} save={setCurrentUser}
-    signOut={() => setCurrentUser(null)} />;
+    signOut={async () => {
+      await endSession();
+      setCurrentUser(null);
+      router.replace("/account/signin");
+    }} />;
 }
 
 function ProfileForm({ user, save, signOut }: {
   user: AccountUser;
   save: (user: AccountUser) => void;
-  signOut: () => void;
+  signOut: () => Promise<void>;
 }) {
   const [draft, setDraft] = useState(user);
   const [saved, setSaved] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+
+  async function run(action: () => Promise<void>, failureMessage: string) {
+    if (busy) return;
+    setBusy(true);
+    setError("");
+    setSaved(false);
+    try {
+      await action();
+    } catch (failure) {
+      setError(apiError(failure, failureMessage));
+    } finally {
+      setBusy(false);
+    }
+  }
 
   function change(field: "firstName" | "lastName" | "email", value: string) {
     setDraft((previous) => ({ ...previous, [field]: value }));
@@ -39,8 +62,12 @@ function ProfileForm({ user, save, signOut }: {
   return (
     <form id="wd-profile-screen" className="max-w-3xl" onSubmit={(event) => {
       event.preventDefault();
-      save(draft);
-      setSaved(true);
+      void run(async () => {
+        const profile = await updateProfile(draft);
+        save(profile);
+        setDraft(profile);
+        setSaved(true);
+      }, "Your profile could not be saved.");
     }}>
       <h1 className="mb-5 text-2xl font-semibold">Profile</h1>
 
@@ -145,10 +172,11 @@ function ProfileForm({ user, save, signOut }: {
       </section>
 
       <div className="mt-5 flex flex-wrap gap-2">
-        <button id="wd-profile-save" type="submit" className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">Save</button>
-        <button id="wd-profile-cancel" type="reset" onClick={() => { setDraft(user); setSaved(false); }} className="rounded border border-neutral-300 bg-neutral-100 px-4 py-2 text-neutral-800 hover:bg-neutral-200">Cancel</button>
-        <button type="button" onClick={signOut} id="wd-profile-signout" className="rounded bg-red-600 px-4 py-2 text-white no-underline hover:bg-red-700">Sign out</button>
+        <button id="wd-profile-save" type="submit" disabled={busy} className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">Save</button>
+        <button id="wd-profile-cancel" type="reset" disabled={busy} onClick={() => { setDraft(user); setSaved(false); }} className="rounded border border-neutral-300 bg-neutral-100 px-4 py-2 text-neutral-800 hover:bg-neutral-200">Cancel</button>
+        <button type="button" disabled={busy} onClick={() => void run(signOut, "Sign out could not be completed.")} id="wd-profile-signout" className="rounded bg-red-600 px-4 py-2 text-white no-underline hover:bg-red-700">Sign out</button>
       </div>
+      {error && <p role="alert" className="mt-3 text-red-700">{error}</p>}
       {saved && <p role="status" className="mt-3">Profile saved.</p>}
     </form>
   );

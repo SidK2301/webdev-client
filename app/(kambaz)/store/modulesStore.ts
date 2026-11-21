@@ -1,20 +1,27 @@
 import { create } from "zustand";
-import seed from "../database/modules.json";
 
-export type Module = (typeof seed)[number];
+export type Module = {
+  _id: string;
+  name: string;
+  description: string;
+  course: string;
+  lessons?: { _id: string; name: string; description: string; module: string }[];
+};
 
 type ModuleState = {
   modules: Module[];
-  add: (draft: Omit<Module, "_id">) => void;
+  replaceForCourse: (courseId: string, modules: Module[]) => void;
+  add: (record: Module) => void;
   update: (record: Module) => void;
   remove: (id: string) => void;
 };
 
 export const useModules = create<ModuleState>((set) => ({
-  modules: seed,
-  add: (draft) => set((state) => ({
-    modules: [...state.modules, { ...draft, _id: crypto.randomUUID() }],
+  modules: [],
+  replaceForCourse: (courseId, modules) => set((state) => ({
+    modules: [...state.modules.filter((item) => item.course !== courseId), ...modules],
   })),
+  add: (record) => set((state) => ({ modules: [...state.modules, record] })),
   update: (record) => set((state) => ({
     modules: state.modules.map((item) => item._id === record._id ? record : item),
   })),

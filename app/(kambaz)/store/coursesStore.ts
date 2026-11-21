@@ -1,20 +1,30 @@
 import { create } from "zustand";
-import seed from "../database/courses.json";
 
-export type Course = (typeof seed)[number];
+export type Course = {
+  _id: string;
+  name: string;
+  number: string;
+  startDate: string;
+  endDate: string;
+  department: string;
+  credits: number;
+  description: string;
+  image: string;
+  term: string;
+};
 
 type CourseState = {
   courses: Course[];
-  add: (draft: Omit<Course, "_id">) => void;
+  replace: (courses: Course[]) => void;
+  add: (record: Course) => void;
   update: (record: Course) => void;
   remove: (id: string) => void;
 };
 
 export const useCourses = create<CourseState>((set) => ({
-  courses: seed,
-  add: (draft) => set((state) => ({
-    courses: [...state.courses, { ...draft, _id: crypto.randomUUID() }],
-  })),
+  courses: [],
+  replace: (courses) => set({ courses }),
+  add: (record) => set((state) => ({ courses: [...state.courses, record] })),
   update: (record) => set((state) => ({
     courses: state.courses.map((item) => item._id === record._id ? record : item),
   })),

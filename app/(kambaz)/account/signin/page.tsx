@@ -2,7 +2,8 @@
 
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { authenticate } from "../authenticate";
+import { signIn as requestSignIn } from "../client";
+import { apiError } from "../../api";
 import { useAccount } from "../AccountContext";
 import Link from "next/link";
 
@@ -19,16 +20,12 @@ export default function Signin() {
     setPending(true);
     setError("");
     try {
-      const user = await authenticate(String(fields.get("username") ?? "").trim(),
+      const user = await requestSignIn(String(fields.get("username") ?? "").trim(),
         String(fields.get("password") ?? ""));
-      if (!user) {
-        setError("Username or password is incorrect.");
-        return;
-      }
       setCurrentUser(user);
       router.replace("/dashboard");
-    } catch {
-      setError("Sign in could not be completed. Try again.");
+    } catch (failure) {
+      setError(apiError(failure, "Sign in could not be completed. Try again."));
     } finally {
       setPending(false);
     }

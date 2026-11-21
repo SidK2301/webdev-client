@@ -9,5 +9,5 @@ export default async function CourseLayout({
   params: Promise<{ cid: string }>;
 }>) {
   const { cid } = await params;
-  return <CourseShell cid={cid}>{children}</CourseShell>;
+  return <CourseShell key={cid} cid={cid}>{children}</CourseShell>;
 }
