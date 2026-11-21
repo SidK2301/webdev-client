@@ -8,6 +8,9 @@ export default function CourseCard({
   image,
   onEdit,
   onDelete,
+  enrolled,
+  onEnrollment,
+  busy,
 }: {
   _id: string;
   name: string;
@@ -15,6 +18,9 @@ export default function CourseCard({
   image: string;
   onEdit: () => void;
   onDelete: () => void;
+  enrolled: boolean;
+  onEnrollment?: () => void;
+  busy: boolean;
 }) {
   return (
     <div className="wd-dashboard-course w-[300px] max-w-full overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-sm">
@@ -43,9 +49,15 @@ export default function CourseCard({
           </span>
         </div>
       </Link>
-      <div className="flex gap-2 px-4 pb-4">
-        <button type="button" className="wd-edit-course-click rounded border px-3 py-1" onClick={onEdit}>Edit</button>
-        <button type="button" className="wd-delete-course-click rounded border px-3 py-1 text-red-700" onClick={onDelete}>Delete</button>
+      <div className="flex flex-wrap gap-2 px-4 pb-4">
+        <button type="button" className="wd-edit-course-click rounded border px-3 py-1" onClick={onEdit} disabled={busy}>Edit</button>
+        <button type="button" className="wd-delete-course-click rounded border px-3 py-1 text-red-700" onClick={onDelete} disabled={busy}>Delete</button>
+        {onEnrollment && (
+          <button type="button" className="rounded border px-3 py-1" disabled={busy}
+            aria-label={`${enrolled ? "Unenroll from" : "Enroll in"} ${name}`} onClick={onEnrollment}>
+            {enrolled ? "Unenroll" : "Enroll"}
+          </button>
+        )}
       </div>
     </div>
   );

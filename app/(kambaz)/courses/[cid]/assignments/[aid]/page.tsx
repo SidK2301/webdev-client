@@ -1,6 +1,10 @@
-import type { ReactNode } from "react";
+"use client";
+
+import { useEffect, useState, type FormEvent, type ReactNode } from "react";
+import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import * as db from "../../../../database";
+import { apiError } from "../../../../api";
+import { findAssignment, saveAssignment, type Assignment } from "../client";
 
 const inputClass =
   "w-full rounded border border-neutral-300 bg-white px-3 py-2 text-sm focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-100";
@@ -26,17 +30,79 @@ function EditorField({
   );
 }
 
-export default async function AssignmentEditor({
-  params,
-}: {
-  params: Promise<{ cid: string; aid: string }>;
-}) {
-  const { cid, aid } = await params;
-  const assignment = db.assignments.find((a) => a._id === aid && a.course === cid);
+function dateField(value: string | undefined, defaultTime: string) {
+  if (!value) return "";
+  return value.length === 10 ? `${value}T${defaultTime}` : value;
+}
+
+export default function AssignmentEditor() {
+  const { cid, aid } = useParams<{ cid: string; aid?: string }>();
+  return <Editor key={`${cid}/${aid ?? "new"}`} cid={cid} aid={aid} />;
+}
+
+function Editor({ cid, aid }: { cid: string; aid?: string }) {
+  const router = useRouter();
+  const [assignment, setAssignment] = useState<Assignment>();
+  const [loadError, setLoadError] = useState("");
+  const [saveError, setSaveError] = useState("");
+  const [pending, setPending] = useState(false);
   const assignmentsHref = `/courses/${cid}/assignments`;
 
+  useEffect(() => {
+    if (!aid) return;
+    const controller = new AbortController();
+    findAssignment(cid, aid, controller.signal)
+      .then((record) => { if (!controller.signal.aborted) setAssignment(record); })
+      .catch((failure) => {
+        if (!controller.signal.aborted) setLoadError(apiError(failure, "The assignment could not be loaded."));
+      });
+    return () => controller.abort();
+  }, [aid, cid]);
+
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (pending) return;
+    const fields = new FormData(event.currentTarget);
+    const value = (name: string) => String(fields.get(name) ?? "");
+    setPending(true);
+    setSaveError("");
+    try {
+      await saveAssignment(cid, aid, {
+        title: value("title").trim(),
+        description: value("description"),
+        points: Number(value("points")),
+        group: value("group"),
+        displayGradeAs: value("displayGradeAs"),
+        submissionType: value("submissionType"),
+        onlineEntry: fields.getAll("online-entry").map(String),
+        assignTo: value("assignTo"),
+        due: value("due"),
+        available: value("available"),
+        until: value("until"),
+        notes: value("notes"),
+      });
+      router.push(assignmentsHref);
+    } catch (failure) {
+      setSaveError(apiError(failure, "The assignment could not be saved."));
+    } finally {
+      setPending(false);
+    }
+  }
+
+  if (aid && !assignment) {
+    return (
+      <section id="wd-assignments-editor">
+        <h1 className="mb-5 text-2xl font-semibold">Assignment Editor</h1>
+        {loadError ? <p role="alert">{loadError}</p> : <p role="status">Loading assignment…</p>}
+        <Link href={assignmentsHref}>Back to assignments</Link>
+      </section>
+    );
+  }
+
+  const onlineEntry = assignment?.onlineEntry ?? ["Website URL"];
+
   return (
-    <div key={aid} id="wd-assignments-editor" className="max-w-5xl">
+    <form id="wd-assignments-editor" className="max-w-5xl" onSubmit={submit}>
       <h1 className="mb-5 text-2xl font-semibold text-neutral-800">
         Assignment Editor
       </h1>
@@ -44,17 +110,20 @@ export default async function AssignmentEditor({
         <EditorField id="wd-name" label="Assignment Name">
           <input
             id="wd-name"
+            name="title"
             type="text"
+            required
             defaultValue={assignment?.title ?? ""}
             className={inputClass}
           />
         </EditorField>
 
-        <p className="text-sm text-neutral-600">Assignment id: {aid}</p>
+        {aid && <p className="text-sm text-neutral-600">Assignment id: {aid}</p>}
 
         <EditorField id="wd-assignment-description" label="Description">
           <textarea
             id="wd-assignment-description"
+            name="description"
             rows={6}
             defaultValue={assignment?.description ?? ""}
             className={inputClass}
@@ -64,7 +133,11 @@ export default async function AssignmentEditor({
         <EditorField id="wd-assignment-points" label="Points">
           <input
             id="wd-assignment-points"
+            name="points"
             type="number"
+            min="0"
+            step="any"
+            required
             defaultValue={assignment?.points ?? 100}
             className={inputClass}
           />
@@ -73,7 +146,8 @@ export default async function AssignmentEditor({
         <EditorField id="wd-assignment-group" label="Assignment Group">
           <select
             id="wd-assignment-group"
-            defaultValue="ASSIGNMENTS"
+            name="group"
+            defaultValue={assignment?.group ?? "ASSIGNMENTS"}
             className={selectClass}
           >
             <option value="ASSIGNMENTS">ASSIGNMENTS</option>
@@ -83,7 +157,8 @@ export default async function AssignmentEditor({
         <EditorField id="wd-display-grade-as" label="Display Grade As">
           <select
             id="wd-display-grade-as"
-            defaultValue="Percentage"
+            name="displayGradeAs"
+            defaultValue={assignment?.displayGradeAs ?? "Percentage"}
             className={selectClass}
           >
             <option>Percentage</option>
@@ -96,7 +171,8 @@ export default async function AssignmentEditor({
           <div className="space-y-4 rounded border border-neutral-300 p-4">
             <select
               id="wd-submission-type"
-              defaultValue="Online"
+              name="submissionType"
+              defaultValue={assignment?.submissionType ?? "Online"}
               className={selectClass}
             >
               <option>Online</option>
@@ -109,7 +185,7 @@ export default async function AssignmentEditor({
               </legend>
               <div className="grid gap-2 sm:grid-cols-2">
                 <label className="flex items-center gap-2 text-sm">
-                  <input type="checkbox" name="online-entry" value="Text Entry" />
+                  <input type="checkbox" name="online-entry" value="Text Entry" defaultChecked={onlineEntry.includes("Text Entry")} />
                   Text Entry
                 </label>
                 <label className="flex items-center gap-2 text-sm">
@@ -117,20 +193,20 @@ export default async function AssignmentEditor({
                     type="checkbox"
                     name="online-entry"
                     value="Website URL"
-                    defaultChecked
+                    defaultChecked={onlineEntry.includes("Website URL")}
                   />
                   Website URL
                 </label>
                 <label className="flex items-center gap-2 text-sm">
-                  <input type="checkbox" name="online-entry" value="Media Recordings" />
+                  <input type="checkbox" name="online-entry" value="Media Recordings" defaultChecked={onlineEntry.includes("Media Recordings")} />
                   Media Recordings
                 </label>
                 <label className="flex items-center gap-2 text-sm">
-                  <input type="checkbox" name="online-entry" value="Student Annotation" />
+                  <input type="checkbox" name="online-entry" value="Student Annotation" defaultChecked={onlineEntry.includes("Student Annotation")} />
                   Student Annotation
                 </label>
                 <label className="flex items-center gap-2 text-sm">
-                  <input type="checkbox" name="online-entry" value="File Uploads" />
+                  <input type="checkbox" name="online-entry" value="File Uploads" defaultChecked={onlineEntry.includes("File Uploads")} />
                   File Uploads
                 </label>
               </div>
@@ -141,8 +217,9 @@ export default async function AssignmentEditor({
         <EditorField id="wd-assign-to" label="Assign">
           <input
             id="wd-assign-to"
+            name="assignTo"
             type="text"
-            defaultValue="Everyone"
+            defaultValue={assignment?.assignTo ?? "Everyone"}
             className={inputClass}
           />
         </EditorField>
@@ -150,8 +227,9 @@ export default async function AssignmentEditor({
         <EditorField id="wd-assignment-due-date" label="Due">
           <input
             id="wd-assignment-due-date"
+            name="due"
             type="datetime-local"
-            defaultValue={assignment?.due ? `${assignment.due}T23:59` : ""}
+            defaultValue={dateField(assignment?.due, "23:59")}
             className={inputClass}
           />
         </EditorField>
@@ -159,8 +237,9 @@ export default async function AssignmentEditor({
         <EditorField id="wd-available-from" label="Available from">
           <input
             id="wd-available-from"
+            name="available"
             type="datetime-local"
-            defaultValue={assignment?.available ? `${assignment.available}T00:01` : ""}
+            defaultValue={dateField(assignment?.available, "00:01")}
             className={inputClass}
           />
         </EditorField>
@@ -168,7 +247,9 @@ export default async function AssignmentEditor({
         <EditorField id="wd-available-until" label="Until">
           <input
             id="wd-available-until"
+            name="until"
             type="datetime-local"
+            defaultValue={dateField(assignment?.until, "23:59")}
             className={inputClass}
           />
         </EditorField>
@@ -176,13 +257,16 @@ export default async function AssignmentEditor({
         <EditorField id="wd-ai-editor-notes" label="Sample notes">
           <textarea
             id="wd-ai-editor-notes"
+            name="notes"
             rows={3}
+            defaultValue={assignment?.notes ?? ""}
             placeholder="Sample notes"
             className={inputClass}
           />
         </EditorField>
       </div>
 
+      {saveError && <p role="alert" className="my-3 text-red-700">{saveError}</p>}
       <hr className="my-6 border-neutral-300" />
       <div className="flex justify-end gap-2">
         <Link
@@ -192,14 +276,15 @@ export default async function AssignmentEditor({
         >
           Cancel
         </Link>
-        <Link
-          href={assignmentsHref}
+        <button
+          type="submit"
+          disabled={pending}
           id="wd-save-assignment"
           className="rounded bg-red-600 px-4 py-2 text-sm font-medium text-white no-underline hover:bg-red-700"
         >
           Save
-        </Link>
+        </button>
       </div>
-    </div>
+    </form>
   );
 }

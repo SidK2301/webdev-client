@@ -3,7 +3,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { useAccount } from "../account/AccountContext";
 import { apiError } from "../api";
-import { createCourse, deleteCourse, findCourses, updateCourse } from "../courses/client";
+import { changeEnrollment, createCourse, deleteCourse, findCourses, updateCourse } from "../courses/client";
 import CourseCard from "./CourseCard";
 import { useCourses, type Course } from "../store/coursesStore";
 
@@ -24,14 +24,20 @@ function CourseDashboard({ signedIn, accountError }: { signedIn: boolean; accoun
   const [loaded, setLoaded] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
-  const visibleCourses = loaded ? courses : [];
+  const [catalog, setCatalog] = useState<Course[]>([]);
+  const [showCatalog, setShowCatalog] = useState(false);
+  const enrolledIds = new Set(courses.map(({ _id }) => _id));
+  const visibleCourses = loaded ? (showCatalog ? catalog : courses) : [];
 
   useEffect(() => {
     const controller = new AbortController();
-    findCourses(signedIn, controller.signal)
-      .then((records) => {
+    const allCourses = findCourses(false, controller.signal);
+    const myCourses = signedIn ? findCourses(true, controller.signal) : allCourses;
+    Promise.all([allCourses, myCourses])
+      .then(([all, visible]) => {
         if (controller.signal.aborted) return;
-        replace(records);
+        setCatalog(all);
+        replace(visible);
         setLoaded(true);
       })
       .catch((failure) => {
@@ -68,12 +74,16 @@ function CourseDashboard({ signedIn, accountError }: { signedIn: boolean; accoun
     if (!name) return;
     void mutate(async () => {
       if (editing) {
-        update(await updateCourse({ ...editing, ...draft, name }));
+        const saved = await updateCourse({ ...editing, ...draft, name });
+        update(saved);
+        setCatalog((records) => records.map((record) => record._id === saved._id ? saved : record));
       } else {
-        add(await createCourse({
+        const saved = await createCourse({
           ...draft, name, image: "/images/reactjs.jpg",
           endDate: "", department: "", credits: 0, term: "",
-        }));
+        });
+        add(saved);
+        setCatalog((records) => [...records, saved]);
       }
       reset();
     }, "The course could not be saved.");
@@ -108,12 +118,27 @@ function CourseDashboard({ signedIn, accountError }: { signedIn: boolean; accoun
       </form>
       {(error || accountError) && <p role="alert" className="my-2 text-red-700">{error || accountError}</p>}
       {!loaded && !error && <p role="status">Loading courses…</p>}
+      {signedIn && (
+        <div className="my-3 flex gap-2" role="group" aria-label="Course list">
+          <button type="button" aria-pressed={!showCatalog} onClick={() => setShowCatalog(false)}
+            className={!showCatalog ? buttonClass : "rounded border px-3 py-2"}>My Courses</button>
+          <button type="button" aria-pressed={showCatalog} onClick={() => setShowCatalog(true)}
+            className={showCatalog ? buttonClass : "rounded border px-3 py-2"}>All Courses</button>
+        </div>
+      )}
       <h2 id="wd-dashboard-published">Published Courses ({visibleCourses.length})</h2>
       <hr />
       <div id="wd-dashboard-courses"
         className="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
         {visibleCourses.map((course) => (
-          <CourseCard key={course._id} {...course} onEdit={() => {
+          <CourseCard key={course._id} {...course}
+            enrolled={enrolledIds.has(course._id)}
+            onEnrollment={signedIn ? () => void mutate(async () => {
+              await changeEnrollment(course._id, !enrolledIds.has(course._id));
+              replace(await findCourses(true));
+            }, "The enrollment could not be updated.") : undefined}
+            busy={busy}
+            onEdit={() => {
             if (busy) return;
             setEditing(course);
             setDraft({ name: course.name, description: course.description,
@@ -122,6 +147,7 @@ function CourseDashboard({ signedIn, accountError }: { signedIn: boolean; accoun
           }} onDelete={() => void mutate(async () => {
             await deleteCourse(course._id);
             remove(course._id);
+            setCatalog((records) => records.filter((record) => record._id !== course._id));
             if (editing?._id === course._id) reset();
           }, "The course could not be deleted.")} />
         ))}

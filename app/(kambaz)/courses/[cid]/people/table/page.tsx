@@ -1,14 +1,34 @@
-import { FaUserCircle } from "react-icons/fa";
-import * as db from "../../../../database";
+"use client";
 
-export default async function PeopleTable({ params }: { params: Promise<{ cid: string }> }) {
-  const { cid } = await params;
-  const { users, enrollments } = db;
-  const enrolled = users.filter((user) => enrollments.some(
-    (enrollment) => enrollment.user === user._id && enrollment.course === cid,
-  ));
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { FaUserCircle } from "react-icons/fa";
+import { apiError } from "../../../../api";
+import { findCoursePeople, type CoursePerson } from "../../../client";
+
+export default function PeopleTable() {
+  const { cid } = useParams<{ cid: string }>();
+  return <CourseRoster key={cid} cid={cid} />;
+}
+
+function CourseRoster({ cid }: { cid: string }) {
+  const [enrolled, setEnrolled] = useState<CoursePerson[]>();
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const controller = new AbortController();
+    findCoursePeople(cid, controller.signal)
+      .then((records) => { if (!controller.signal.aborted) setEnrolled(records); })
+      .catch((failure) => {
+        if (!controller.signal.aborted) setError(apiError(failure, "The course roster could not be loaded."));
+      });
+    return () => controller.abort();
+  }, [cid]);
+
   return (
     <div id="wd-people-table" className="overflow-x-auto">
+      {error && <p role="alert" className="mb-2 text-red-700">{error}</p>}
+      {!enrolled && !error && <p role="status">Loading roster…</p>}
       <table className="w-full border-collapse text-left text-sm">
         <thead>
           <tr className="border-b border-neutral-300">
@@ -21,7 +41,7 @@ export default async function PeopleTable({ params }: { params: Promise<{ cid: s
           </tr>
         </thead>
         <tbody>
-          {enrolled.map((user) => (
+          {enrolled?.map((user) => (
             <tr key={user._id} className="odd:bg-neutral-50">
               <td className="wd-full-name p-2 text-nowrap">
                 <FaUserCircle className="me-2 inline text-4xl text-neutral-500" />
